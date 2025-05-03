@@ -1,13 +1,15 @@
 <template>
-  <div class="inputFields">
-    <PlanChoices />
-    <TextInput class="ti" />
-  </div>
   <div>
-    {{ globalConfig.applyDiscount }}
-    {{ globalConfig.discount2Plus }}
-    {{ globalConfig.discountValue }}
-    {{ globalConfig.showRange }}
+    <div class="inputFields">
+      <PlanChoices />
+      <TextInput class="ti" />
+    </div>
+    <div>
+      {{ globalConfig.applyDiscount }}
+      {{ globalConfig.discount2Plus }}
+      {{ globalConfig.discountValue }}
+      {{ globalConfig.showRange }}
+    </div>
   </div>
 </template>
 
