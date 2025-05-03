@@ -3,6 +3,8 @@
     <v-text-field
       v-model="input"
       :label="$labels.textinput_age_label"
+      :rules="[intSpaceRule]"
+      @keypress="restrictInput"
     >
       <template #prepend>
         <v-icon color="primary">mdi-account</v-icon>
@@ -22,5 +24,18 @@ const input = ref("")
 
 function clearInput(){
   input.value = ""
+}
+
+const intSpaceRule = (value: string) => {
+  if (!value) return true;
+  return /^[0-9\s]*$/.test(value) || 'Digite apenas números inteiros e espaços';
+};
+
+function restrictInput(event: KeyboardEvent) {
+  const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
+  if (allowedKeys.includes(event.key)) return;
+  if (!/[0-9\s]/.test(event.key)) {
+    event.preventDefault(); // Prevent non-integer, non-space characters
+  }
 }
 </script>
