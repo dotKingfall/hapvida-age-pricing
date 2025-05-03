@@ -11,10 +11,10 @@
 
       <!-- TITLE-->
       <v-app-bar-title class="appbar-title">
-        <div>{{ $labels.global_title }}</div>
+        <div>{{ $labels.appbar_title }}</div>
         <div class="last-updated-message">
           <v-icon icon="mdi-clock-outline" size="small" />
-           <span class="ml-1 mt-1">{{ $labels.global_last_updated }}</span>
+           <span class="ml-1 mt-1">{{ $labels.appbar_last_updated }}</span>
         </div>
       </v-app-bar-title>
 
@@ -43,9 +43,10 @@
     <v-navigation-drawer
       class="bg-light_bg"
       v-model="isDrawerOpen"
+      :width="drawerSize"
       temporary
     >
-
+      <div>hi</div>
     </v-navigation-drawer>
 
     <v-main class="app-outline">
@@ -55,9 +56,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
 
 const isDrawerOpen = ref(false)
+const { mobile } = useDisplay()
+
+const drawerSize = computed(() => {
+  return mobile.value ? 280 : 500
+})
+
 </script>
 
 <style scoped lang="scss">

@@ -1,5 +1,5 @@
 <template>
-  <div>hi</div>
+  <div>[PLAN CHOICES]</div>
 </template>
 
 <script lang="ts" setup>
