@@ -2,8 +2,10 @@
   <div>
     <v-text-field
       v-model="input"
+      color="primary"
       :label="$labels.textinput_age_label"
       :rules="[intSpaceRule]"
+      inputmode="numeric"
       @keypress="restrictInput"
     >
       <template #prepend>

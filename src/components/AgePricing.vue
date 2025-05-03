@@ -1,6 +1,7 @@
 <template>
   <div class="background">
-    <TextInput />
+    <PlanChoices />
+    <TextInput class="ti" />
   </div>
 </template>
 
@@ -8,4 +9,11 @@
 </script>
 
 <style scoped lang="scss">
+.background{
+  display: flex;
+}
+
+.ti{
+  flex-grow: 1;
+}
 </style>
