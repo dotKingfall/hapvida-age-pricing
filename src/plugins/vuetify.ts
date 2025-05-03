@@ -19,10 +19,12 @@ export default createVuetify({
       light: {
         dark: false,
         colors: {
-          primary: '#000',
-          accent: '#fff',
+          primary: '#981482',
+          accent: '#C51AA9',
+          light_bg: '#F3E7F3',
         },
       },
+      
       dark: {}, //TODO MAYBE
     },
   },

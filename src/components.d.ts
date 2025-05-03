@@ -11,5 +11,6 @@ declare module 'vue' {
     AgePricing: typeof import('./components/AgePricing.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TextInput: typeof import('./components/agePricing/TextInput.vue')['default']
   }
 }

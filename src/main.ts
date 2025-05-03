@@ -16,7 +16,12 @@ import { createApp } from 'vue'
 // Styles
 import 'unfonts.css'
 
+//Labels
+import * as labels from '@/labels'
+
 const app = createApp(App)
+
+app.config.globalProperties.$labels = labels
 
 registerPlugins(app)
 

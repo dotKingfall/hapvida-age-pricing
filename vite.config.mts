@@ -93,6 +93,10 @@ export default defineConfig({
       },
       scss: {
         api: 'modern-compiler',
+        additionalData: `
+          @use "/src/styles/colors.scss" as c;
+          @use "/src/styles/settings.scss" as s;
+        `,
       },
     },
   },
