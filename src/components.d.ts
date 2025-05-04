@@ -9,6 +9,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AgePricing: typeof import('./components/AgePricing.vue')['default']
+    ApplyDiscount: typeof import('./components/drawer/ApplyDiscount.vue')['default']
+    DrawerItems: typeof import('./components/drawer/drawerItems')['default']
     PlanChoices: typeof import('./components/agePricing/PlanChoices.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

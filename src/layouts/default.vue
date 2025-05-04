@@ -41,12 +41,23 @@
     </v-app-bar>
 
     <v-navigation-drawer
-      class="bg-light_bg"
+      class="bg-light_bg drawer"
       v-model="isDrawerOpen"
       :width="drawerSize"
       temporary
     >
-      <div>hi</div>
+      <div class="drawer-title">
+        <v-icon color="primary" size="3.5vh">mdi-cog</v-icon>
+        <div class="ml-2">{{ $labels.drawer_title }}</div>
+      </div>
+
+      <v-divider />
+
+      <div>
+        <v-list-item v-for="(item, index) in drawerItems" :key="index">
+          <component :is="item" />
+        </v-list-item>
+      </div>
     </v-navigation-drawer>
 
     <v-main class="app-outline">
@@ -56,6 +67,7 @@
 </template>
 
 <script lang="ts" setup>
+import ApplyDiscount from '@/components/drawer/ApplyDiscount.vue'
 import { ref, computed } from 'vue'
 import { useDisplay } from 'vuetify'
 
@@ -66,9 +78,29 @@ const drawerSize = computed(() => {
   return mobile.value ? 280 : 500
 })
 
+const drawerItems = [
+  ApplyDiscount,
+]
+
+
+
 </script>
 
 <style scoped lang="scss">
+
+.drawer-title{
+  color: c.$primary;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  display: flex;
+  font-size: x-large;
+  justify-content: center;
+  align-items: center;
+}
+
+.drawer{
+  font-family: "Zain", sans-serif;
+}
 
 .app-outline{
   background-color: c.$l-bg;
