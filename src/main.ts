@@ -4,20 +4,14 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
-// Plugins
+// Plugins, Components, Composables, Styles respectively
 import { registerPlugins } from '@/plugins'
-
-// Components
 import App from './App.vue'
-
-// Composables
 import { createApp } from 'vue'
-
-// Styles
 import 'unfonts.css'
 
-//Labels
 import * as labels from '@/labels'
+import { useAppStore } from './stores/app'
 
 const app = createApp(App)
 
@@ -26,3 +20,6 @@ app.config.globalProperties.$labels = labels
 registerPlugins(app)
 
 app.mount('#app')
+
+const appStore = useAppStore()
+appStore.loadAllPriceTables()

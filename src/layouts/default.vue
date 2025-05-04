@@ -14,7 +14,7 @@
         <div>{{ $labels.appbar_title }}</div>
         <div class="last-updated-message">
           <v-icon icon="mdi-clock-outline" size="small" />
-           <span class="ml-1 mt-1">{{ $labels.appbar_last_updated }}</span>
+          <span class="ml-1 mt-1">{{ $labels.appbar_last_updated }}</span>
         </div>
       </v-app-bar-title>
 
@@ -34,7 +34,6 @@
           <template #prepend>
             <v-icon icon="mdi-github" size="24" />
           </template>
-
           Github
         </v-btn>
       </template>
@@ -61,7 +60,17 @@
     </v-navigation-drawer>
 
     <v-main class="app-outline">
-      <router-view class="app-padding" />
+      <!-- Progress Circular when loading -->
+      <div v-if="appStore.isLoading" class="loading-overlay">
+        <v-progress-circular
+          color="primary"
+          indeterminate
+          size="64"
+          width="6"
+        />
+      </div>
+      <!-- Main content when not loading -->
+      <router-view v-else class="app-padding" />
     </v-main>
   </v-app>
 </template>
@@ -70,7 +79,9 @@
 import ApplyDiscount from '@/components/drawer/ApplyDiscount.vue'
 import { ref, computed } from 'vue'
 import { useDisplay } from 'vuetify'
+import { useAppStore } from '@/stores/app'
 
+const appStore = useAppStore()
 const isDrawerOpen = ref(false)
 const { mobile } = useDisplay()
 
@@ -81,31 +92,27 @@ const drawerSize = computed(() => {
 const drawerItems = [
   ApplyDiscount,
 ]
-
-
-
 </script>
 
 <style scoped lang="scss">
-
-.drawer-title{
+.drawer-title {
   color: c.$primary;
   margin-top: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   display: flex;
   font-size: x-large;
   justify-content: center;
   align-items: center;
 }
 
-.drawer{
+.drawer {
   font-family: "Zain", sans-serif;
 }
 
-.app-outline{
+.app-outline {
   background-color: c.$l-bg;
 
-  .app-padding{
+  .app-padding {
     padding: 15px;
   }
 }
@@ -119,7 +126,7 @@ const drawerItems = [
   color: c.$l-text !important;
 }
 
-.appbar-title{
+.appbar-title {
   font-size: xx-large;
   font-family: "Zain", sans-serif;
   height: 100%;
@@ -131,9 +138,17 @@ const drawerItems = [
   }
 }
 
-.last-updated-message{
+.last-updated-message {
   font-size: medium;
   display: flex;
   align-items: center;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 </style>
