@@ -5,6 +5,8 @@ export const appbar_title = "ORÇAMENTO EDITÁVEL SP"
 //Drawer
 export const drawer_title = "CONFIGURAÇÕES"
 export const drawer_apply_discount = "APLICAR OUTRO DESCONTO"
+export const drawer_override_base_discount = "ALTERAR DESCONTO BASE"
+export const drawer_show_age_range = "SUBSTITUIR IDADE POR FAIXA ETÁRIA"
 
 //TextInput
 export const textinput_age_label = "Idades"

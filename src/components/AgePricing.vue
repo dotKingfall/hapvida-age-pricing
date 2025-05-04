@@ -5,9 +5,8 @@
       <TextInput class="ti" />
     </div>
     <div>
-      {{ globalConfig.applyDiscount }}
-      {{ globalConfig.discount2Plus }}
-      {{ globalConfig.discountValue }}
+      discount2Plus {{ globalConfig.baseDiscount }}//
+      discountValue {{ globalConfig.discountValue }}//
       {{ globalConfig.showRange }}
     </div>
   </div>
