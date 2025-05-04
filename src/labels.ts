@@ -13,11 +13,10 @@ export const textinput_age_label = "Idades"
 
 //Plans
 export const plan_label = "Selecionar Plano"
-export const plan1 = "Notrelife 1 Vida"
-export const plan2 = "Notrelife 50+"
-export const plan3 = "Nosso Médico 1 Vida"
-export const plan4 = "Nosso Médico 2+ Vidas"
-export const plan5 = "Smart 200 1 Vida"
-export const plan6 = "Smart 200 2+ Vidas"
-export const plan7 = "Smart 200 Up 1 Vida"
-export const plan8 = "Smart 200 Up 2+ Vidas"
+export const plan_names = [
+  { name: "Notrelife", value: 0 }, // 1
+  { name: "Notrelife 50+", value: 1 }, // 1
+  { name: "Nosso Médico", value: 2 }, // 1 e 2
+  { name: "Smart 200", value: 3 }, // 1 e 2
+  { name: "Smart 200 Up", value: 4 }, // 1 e 2
+];
