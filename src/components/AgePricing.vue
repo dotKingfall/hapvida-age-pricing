@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="inputFields">
-      <PlanChoices />
+    <div class="input-fields">
+      <PlanChoices class="plan-choices" />
       <TextInput class="ti" />
     </div>
     <div>
@@ -15,15 +15,31 @@
 <script lang="ts" setup>
 import { useGlobalConfigStore } from '@/stores/globalConfig';
 
-const globalConfig = useGlobalConfigStore()
+const globalConfig = useGlobalConfigStore();
 </script>
 
 <style scoped lang="scss">
-.inputFields{
+.input-fields {
   display: flex;
+
+  @media screen and (max-width: s.$mobile-width) {
+    flex-direction: column;
+  }
 }
 
-.ti{
+.ti {
   flex-grow: 1;
+}
+
+.plan-choices {
+  @media screen and (max-width: s.$mobile-width) {
+    order: 2;
+  }
+}
+
+.ti {
+  @media screen and (max-width: s.$mobile-width) {
+    order: 1;
+  }
 }
 </style>
