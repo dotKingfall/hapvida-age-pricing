@@ -6,6 +6,7 @@
       color="primary"
       :label="$labels.textinput_age_label"
       :rules="[intSpaceRule, maxAgeRule]"
+      :hint="$labels.textinput_separate_by_blank_space"
       inputmode="numeric"
       @keypress="restrictInput"
     >
@@ -23,11 +24,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { VTextField } from 'vuetify/components'
+import { useAgeOperationsStore } from '@/stores/ageOperations'
 import { useAppStore } from '@/stores/app';
 import * as labels from '@/labels'
 
 const appStore = useAppStore()
 const ageTextField = ref<InstanceType<typeof VTextField> | null>(null)
+  const ageOperationsStore = useAgeOperationsStore()
 
 const input = ref("")
 const ages = computed(() => {
@@ -56,6 +59,10 @@ function restrictInput(event: KeyboardEvent) {
     event.preventDefault(); // Prevent non-integer, non-space characters
   }
 }
+
+watch(ages, (newAges) => {
+  ageOperationsStore.ageInput = [...newAges] // Update store with a new array copy
+}, { deep: true })
 
 // Trigger validation when I change between plans
 watch(() => appStore.selectedPlanIndex, () => {

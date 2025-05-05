@@ -3,11 +3,7 @@
     <div class="input-fields">
       <PlanChoices class="plan-choices" />
       <TextInput class="ti" />
-    </div>
-    <div>
-      discount2Plus {{ globalConfig.baseDiscount }}//
-      discountValue {{ globalConfig.discountValue }}//
-      {{ globalConfig.showRange }}
+
     </div>
   </div>
 </template>
@@ -34,6 +30,7 @@ const globalConfig = useGlobalConfigStore();
 .plan-choices {
   @media screen and (max-width: s.$mobile-width) {
     order: 2;
+    margin-top: 10px;
   }
 }
 

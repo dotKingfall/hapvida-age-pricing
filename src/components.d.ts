@@ -12,6 +12,7 @@ declare module 'vue' {
     ApplyDiscount: typeof import('./components/drawer/ApplyDiscount.vue')['default']
     DrawerItems: typeof import('./components/drawer/drawerItems')['default']
     PlanChoices: typeof import('./components/agePricing/PlanChoices.vue')['default']
+    PricingTable: typeof import('./components/PricingTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TextInput: typeof import('./components/agePricing/TextInput.vue')['default']
