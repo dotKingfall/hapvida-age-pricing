@@ -27,3 +27,10 @@ export const plan_names = [
 
 //PricingTable
 export const pricingtable_reference_label = "REFERÊNCIA: "
+export const reference_names = [
+  "Notrelife Individual",
+  "Notrelife 50+",
+  ["Nosso Médico (1 Vida)", "Nosso Médico (2+ Vidas)"],
+  ["Smart 200 (1 Vida)", "Smart 200 (2+ Vidas)"],
+  ["Smart 200 Up (1 Vida)", "Smart 200 Up (2+ Vidas)"],
+]
