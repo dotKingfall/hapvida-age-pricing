@@ -12,7 +12,7 @@
           :disabled="!applyDiscount"
           :min="0"
           :max="100"
-          v-model="discountValue"
+          v-model="discountValueComputed"
         ></v-number-input>
       </div>
     </div>
@@ -29,7 +29,7 @@
           :disabled="!overrideDiscount"
           :min="0"
           :max="100"
-          v-model="baseDiscount"
+          v-model="baseDiscountComputed"
         ></v-number-input>
       </div>
     </div>
@@ -44,9 +44,7 @@
           :label="$labels.drawer_discount_duration"
           control-variant="stacked"
           :disabled="!updateDiscountDuration"
-          :min="1"
-          :max="365"
-          v-model="discountDuration"
+          v-model="discountDurationComputed"
         ></v-number-input>
       </div>
     </div>
@@ -63,7 +61,7 @@
 
 <script lang="ts" setup>
 import { useGlobalConfigStore } from '@/stores/globalConfig';
-import { ref, watch } from 'vue';
+import { ref, computed } from 'vue';
 
 const globalConfigStore = useGlobalConfigStore();
 
@@ -71,42 +69,52 @@ const globalConfigStore = useGlobalConfigStore();
 const applyDiscount = ref(false);
 const overrideDiscount = ref(false);
 const updateDiscountDuration = ref(false);
-const discountValue = ref(globalConfigStore.discountValue);
-const baseDiscount = ref(globalConfigStore.baseDiscount);
-const discountDuration = ref(globalConfigStore.discountDuration);
 const showRange = ref(globalConfigStore.showRange);
 
-// Watch for changes to discount refs and update the store
-watch(
-  [discountValue, baseDiscount, discountDuration],
-  ([newValue, newBase, newDuration]) => {
+// preent null/undefined
+const discountValueComputed = computed({
+  get: () => globalConfigStore.discountValue ?? 0,
+  set: (value) => {
     globalConfigStore.setDiscountSettings({
-      value: newValue,
-      base: newBase,
-      duration: newDuration,
+      value: value ?? 0,
+      base: globalConfigStore.baseDiscount,
+      duration: globalConfigStore.discountDuration,
     });
-  }
-);
+  },
+});
 
-// Watch for changes to showRange and toggle it
+const baseDiscountComputed = computed({
+  get: () => globalConfigStore.baseDiscount ?? 0,
+  set: (value) => {
+    globalConfigStore.setDiscountSettings({
+      value: globalConfigStore.discountValue,
+      base: value ?? 0,
+      duration: globalConfigStore.discountDuration,
+    });
+  },
+});
+
+const discountDurationComputed = computed({
+  get: () => globalConfigStore.discountDuration ?? 0,
+  set: (value) => {
+    globalConfigStore.setDiscountSettings({
+      value: globalConfigStore.discountValue,
+      base: globalConfigStore.baseDiscount,
+      duration: value ?? 0,
+    });
+  },
+});
+
+//WATCH FUNCTIONS
 watch(showRange, (newShowRange) => {
   if (newShowRange !== globalConfigStore.showRange) {
     globalConfigStore.toggleShowRange();
   }
 });
 
-// Sync store changes back to local refs if the store is updated elsewhere
 watch(
-  () => [
-    globalConfigStore.discountValue,
-    globalConfigStore.baseDiscount,
-    globalConfigStore.discountDuration,
-    globalConfigStore.showRange,
-  ],
-  ([newValue, newBase, newDuration, newShowRange]) => {
-    discountValue.value = newValue;
-    baseDiscount.value = newBase;
-    discountDuration.value = newDuration;
+  () => globalConfigStore.showRange,
+  (newShowRange) => {
     showRange.value = newShowRange;
   }
 );
