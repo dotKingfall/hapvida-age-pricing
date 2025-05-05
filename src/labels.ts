@@ -10,6 +10,9 @@ export const drawer_show_age_range = "SUBSTITUIR IDADE POR FAIXA ETÁRIA"
 
 //TextInput
 export const textinput_age_label = "Idades"
+//--Error
+export const textinput_intspace_rule = "Digite apenas números inteiros e espaços"
+export const textinput_maxage_rule = "Este plano não está disponível para pessoas com 50 anos ou mais"
 
 //Plans
 export const plan_label = "Selecionar Plano"

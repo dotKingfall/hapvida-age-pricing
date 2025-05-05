@@ -1,10 +1,11 @@
 <template>
   <div>
     <v-text-field
+    ref="ageTextField"
       v-model="input"
       color="primary"
       :label="$labels.textinput_age_label"
-      :rules="[intSpaceRule]"
+      :rules="[intSpaceRule, maxAgeRule]"
       inputmode="numeric"
       @keypress="restrictInput"
     >
@@ -21,8 +22,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { VTextField } from 'vuetify/components'
+import { useAppStore } from '@/stores/app';
+import * as labels from '@/labels'
+
+const appStore = useAppStore()
+const ageTextField = ref<InstanceType<typeof VTextField> | null>(null)
 
 const input = ref("")
+const ages = computed(() => {
+  if (!input.value) return []
+  return input.value.trim().split(/\s+/).map(Number)
+})
 
 function clearInput(){
   input.value = ""
@@ -30,8 +41,13 @@ function clearInput(){
 
 const intSpaceRule = (value: string) => {
   if (!value) return true;
-  return /^[0-9\s]*$/.test(value) || 'Digite apenas números inteiros e espaços';
+  return /^[0-9\s]*$/.test(value) || labels.textinput_intspace_rule;
 };
+
+const maxAgeRule = () => {
+  if (!ages.value.length || appStore.selectedPlanIndex !== 1) return true
+  return ages.value.every(age => age < 50) || labels.textinput_maxage_rule
+}
 
 function restrictInput(event: KeyboardEvent) {
   const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
@@ -40,4 +56,11 @@ function restrictInput(event: KeyboardEvent) {
     event.preventDefault(); // Prevent non-integer, non-space characters
   }
 }
+
+// Trigger validation when I change between plans
+watch(() => appStore.selectedPlanIndex, () => {
+  if (ageTextField.value) {
+    ageTextField.value.validate()
+  }
+})
 </script>
