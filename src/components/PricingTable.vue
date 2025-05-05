@@ -31,29 +31,28 @@ const currentDiscount = computed(() => {
   const ageInputLength = ageOperationsStore.ageInput.length
   const { discountValue, baseDiscount, discountDuration } = globalConfigStore
 
-  // Case 1: discountValue === 0
   if (discountValue === 0) {
     if (
       (index === 1 && ageInputLength > 1) ||
       (index === 2 && ageInputLength > 1) ||
       (index === 3 && ageInputLength > 1)
     ) {
-      return `${baseDiscount}% discount will be applied`
+      return `(${baseDiscount}% de desconto aplicado).`
     }
-    return '' // No message if none of the conditions are met
+    return ''
   }
 
   // Case 2: discountValue > 0
-  let message = `${discountValue}% discount will be applied for ${discountDuration} months`
+  let message = `(${discountValue}% de desconto aplicado por ${discountDuration} meses`
   
   if (
     (index === 1 && ageInputLength > 1) ||
     (index === 2 && ageInputLength > 1) ||
     (index === 3 && ageInputLength > 1)
   ) {
-    message += `, then ${baseDiscount}% discount will be applied`
+    message += `, com ${baseDiscount}% de desconto vitalício após prazo.)`
   } else {
-    message += ', then usual table values will be applied'
+    message += ', sem desconto vitalício, com valor base após prazo.)'
   }
 
   return message
