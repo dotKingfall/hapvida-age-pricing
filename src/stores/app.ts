@@ -2,23 +2,23 @@ import { defineStore } from 'pinia'
 import Papa from 'papaparse'
 import { loadFileData } from '@/utils/fileLoader'
 import * as labels from '@/labels'
-
-// Assuming Plan and Tier are defined in a separate file
 import { Plan, Tier } from '@/types/planTypes'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
     isLoading: false,
-    notre50ParData: null as Plan | null,
-    smartColData: null as Plan | null,
-    smartUpIndData: null as Plan | null,
     notreParData: null as Plan | null,
-    smartIndData: null as Plan | null,
-    smartUpColData: null as Plan | null,
+    notreTotData: null as Plan | null,
+    notre50ParData: null as Plan | null,
     notre50TotData: null as Plan | null,
     nossoMedIndData: null as Plan | null,
     nossoMedColData: null as Plan | null,
-    notreTotData: null as Plan | null,
+    smartIndData: null as Plan | null,
+    smartColData: null as Plan | null,
+    smartUpIndData: null as Plan | null,
+    smartUpColData: null as Plan | null,
+    selectedPlans: null as any[] | null,
+    selectedPlanIndex: 1 as number,
   }),
 
   actions: {
@@ -109,11 +109,40 @@ export const useAppStore = defineStore('app', {
               break
           }
         }
+        // Initialize selectedPlans with default group (groupId 1)
+        this.selectedPlans = this.getGroup(this.selectedPlanIndex)
       } catch (error) {
         console.error('Error loading CSV files:', error)
       } finally {
         this.isLoading = false
       }
+    },
+
+    getGroup(groupId: number) {
+      let plans
+      switch (groupId) {
+        case 1:
+          plans = [this.notreParData, this.notreTotData]
+          break
+        case 2:
+          plans = [this.notre50ParData, this.notre50TotData]
+          break
+        case 3:
+          plans = [this.nossoMedIndData, this.nossoMedColData]
+          break
+        case 4:
+          plans = [this.smartIndData, this.smartColData]
+          break
+        case 5:
+          plans = [this.smartUpIndData, this.smartUpColData]
+          break
+        default:
+          plans = [null, null]
+      }
+      // Update selectedPlans and selectedPlanIndex
+      this.selectedPlans = plans as Plan[] | null
+      this.selectedPlanIndex = groupId
+      return plans
     },
   },
 })
