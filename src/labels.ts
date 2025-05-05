@@ -19,19 +19,21 @@ export const textinput_maxage_rule = "Este plano não está disponível para pes
 //Plans
 export const plan_label = "Selecionar Plano"
 export const plan_names = [
-  "Notrelife", // 1
-  "Notrelife 50+", // 1
-  "Nosso Médico", // 1 e 2
-  "Smart 200", // 1 e 2
-  "Smart 200 Up", // 1 e 2
+  "Notrelife",
+  "Notrelife 50+",
+  "Nosso Médico Individual",
+  "Nosso Médico Empresarial",
+  "Smart 200", // 2
+  "Smart 200 Up", // 2
 ];
 
 //PricingTable
 export const pricingtable_reference_label = "REFERÊNCIA: "
 export const reference_names = [
-  "Notrelife Individual",
-  "Notrelife 50+",
-  ["Nosso Médico (1 Vida)", "Nosso Médico (2+ Vidas)"],
+  ["Notrelife Individual", "Notrelife Familiar"],
+  ["Notrelife 50+ Individual", "Notrelife 50+ Familiar"],
+  ["Nosso Médico Individual (1 Vida)", "Nosso Médico Individual (2+ Vidas)"],
+  ["Nosso Médico Empresarial (1 Vida)", "Nosso Médico Empresarial (2+ Vidas)"],
   ["Smart 200 (1 Vida)", "Smart 200 (2+ Vidas)"],
   ["Smart 200 Up (1 Vida)", "Smart 200 Up (2+ Vidas)"],
 ]

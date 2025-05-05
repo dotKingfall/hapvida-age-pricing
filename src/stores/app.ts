@@ -65,11 +65,11 @@ export const useAppStore = defineStore('app', {
           { name: 'notre50_par.csv', stateKey: 'notre50ParData', planName: labels.plan_names[1], planId: 3 },
           { name: 'notre50_tot.csv', stateKey: 'notre50TotData', planName: labels.plan_names[1], planId: 4 },
           { name: 'nosso_med_ind.csv', stateKey: 'nossoMedIndData', planName: labels.plan_names[2], planId: 5 },
-          { name: 'nosso_med_col.csv', stateKey: 'nossoMedColData', planName: labels.plan_names[2], planId: 6 },
-          { name: 'smart_col.csv', stateKey: 'smartColData', planName: labels.plan_names[3], planId: 7 },
-          { name: 'smart_ind.csv', stateKey: 'smartIndData', planName: labels.plan_names[3], planId: 8 },
-          { name: 'smart_up_ind.csv', stateKey: 'smartUpIndData', planName: labels.plan_names[4], planId: 9 },
-          { name: 'smart_up_col.csv', stateKey: 'smartUpColData', planName: labels.plan_names[4], planId: 10 },
+          { name: 'nosso_med_col.csv', stateKey: 'nossoMedColData', planName: labels.plan_names[3], planId: 6 },
+          { name: 'smart_col.csv', stateKey: 'smartColData', planName: labels.plan_names[4], planId: 8 },
+          { name: 'smart_ind.csv', stateKey: 'smartIndData', planName: labels.plan_names[4], planId: 9 },
+          { name: 'smart_up_ind.csv', stateKey: 'smartUpIndData', planName: labels.plan_names[5], planId: 10 },
+          { name: 'smart_up_col.csv', stateKey: 'smartUpColData', planName: labels.plan_names[5], planId: 11 },
         ]
 
         for (const file of files) {
@@ -128,16 +128,19 @@ export const useAppStore = defineStore('app', {
           plans = [this.notre50ParData, this.notre50TotData]
           break
         case 3:
-          plans = [this.nossoMedIndData, this.nossoMedColData]
+          plans = [this.nossoMedIndData]
           break
         case 4:
-          plans = [this.smartIndData, this.smartColData]
+          plans = [this.nossoMedColData]
           break
         case 5:
+          plans = [this.smartIndData, this.smartColData]
+          break
+        case 6:
           plans = [this.smartUpIndData, this.smartUpColData]
           break
         default:
-          plans = [null, null]
+          plans = [null]
       }
       // Update selectedPlans and selectedPlanIndex
       this.selectedPlans = plans as Plan[] | null
