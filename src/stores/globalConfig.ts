@@ -7,6 +7,7 @@ export const useGlobalConfigStore = defineStore('globalConfig', {
       discountValue: 0,
       baseDiscount: 7,
       showRange: false,
+      discountDuration: 3,
     }
 
     // Load initial state from localStorage, or use defaults
@@ -25,9 +26,10 @@ export const useGlobalConfigStore = defineStore('globalConfig', {
   },
   actions: {
     // Update discount settings
-    setDiscountSettings({ value, base }: { value: number; base: number }) {
+    setDiscountSettings({ value, base, duration }: { value: number; base: number; duration: number }) {
       this.discountValue = value
       this.baseDiscount = base
+      this.discountDuration = duration
       this.saveToLocalStorage()
     },
     // Toggle showRange

@@ -34,6 +34,23 @@
       </div>
     </div>
 
+    <!-- SET DISCOUNT DURATION -->
+    <div class="discount-field">
+      <v-checkbox v-model="updateDiscountDuration" color="primary" />
+
+      <div class="discount-input">
+        <v-number-input
+          color="primary"
+          :label="$labels.drawer_discount_duration"
+          control-variant="stacked"
+          :disabled="!updateDiscountDuration"
+          :min="1"
+          :max="365"
+          v-model="discountDuration"
+        ></v-number-input>
+      </div>
+    </div>
+
     <!-- SHOW AGE RANGE -->
     <v-checkbox
       :model-value="showRange"
@@ -53,17 +70,20 @@ const globalConfigStore = useGlobalConfigStore();
 // Initialize refs with store values
 const applyDiscount = ref(false);
 const overrideDiscount = ref(false);
+const updateDiscountDuration = ref(false);
 const discountValue = ref(globalConfigStore.discountValue);
 const baseDiscount = ref(globalConfigStore.baseDiscount);
+const discountDuration = ref(globalConfigStore.discountDuration);
 const showRange = ref(globalConfigStore.showRange);
 
 // Watch for changes to discount refs and update the store
 watch(
-  [discountValue, baseDiscount],
-  ([newValue, newBase]) => {
+  [discountValue, baseDiscount, discountDuration],
+  ([newValue, newBase, newDuration]) => {
     globalConfigStore.setDiscountSettings({
       value: newValue,
       base: newBase,
+      duration: newDuration,
     });
   }
 );
@@ -80,11 +100,13 @@ watch(
   () => [
     globalConfigStore.discountValue,
     globalConfigStore.baseDiscount,
+    globalConfigStore.discountDuration,
     globalConfigStore.showRange,
   ],
-  ([newValue, newBase, newShowRange]) => {
+  ([newValue, newBase, newDuration, newShowRange]) => {
     discountValue.value = newValue;
     baseDiscount.value = newBase;
+    discountDuration.value = newDuration;
     showRange.value = newShowRange;
   }
 );

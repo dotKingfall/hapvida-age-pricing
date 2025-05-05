@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts" setup>
-import ApplyDiscount from '@/components/drawer/ApplyDiscount.vue'
+import ApplyDiscount from '@/components/drawer/ConfigList.vue'
 import { ref, computed } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useAppStore } from '@/stores/app'

@@ -5,7 +5,7 @@
       v-model="input"
       color="primary"
       :label="$labels.textinput_age_label"
-      :rules="[intSpaceRule, maxAgeRule]"
+      :rules="[intSpaceRule]"
       :hint="$labels.textinput_separate_by_blank_space"
       inputmode="numeric"
       @keypress="restrictInput"

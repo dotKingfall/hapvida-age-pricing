@@ -7,6 +7,7 @@ export const drawer_title = "CONFIGURAÇÕES"
 export const drawer_apply_discount = "APLICAR OUTRO DESCONTO"
 export const drawer_override_base_discount = "ALTERAR DESCONTO BASE"
 export const drawer_show_age_range = "SUBSTITUIR IDADE POR FAIXA ETÁRIA"
+export const drawer_discount_duration = "DURAÇÃO DO DESCONTO EM MESES";
 
 //TextInput
 export const textinput_age_label = "Idades"
