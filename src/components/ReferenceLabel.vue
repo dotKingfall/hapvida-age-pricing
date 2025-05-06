@@ -3,7 +3,6 @@
     <div class="reference">
       {{ $labels.pricingtable_reference_label }} {{ currentReference }} {{ currentDiscount }}
     </div>
-    <div>hi</div>
   </div>
 </template>
 

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <AgePricing />
-    <v-divider />
-    <PricingTable />
+    <div>
+      <AgePricing />
+      <v-divider />
+    </div>
+
+    <div>
+      <ReferenceLabel />
+      <PricingTables />
+    </div>
   </div>
-  
 </template>
 
 <script lang="ts" setup>
