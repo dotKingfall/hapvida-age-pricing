@@ -84,7 +84,7 @@ export default defineConfig({
   },
   server: {
     host:'192.168.31.205',
-    port: 3000,
+    port: 4000,
   },
   css: {
     preprocessorOptions: {

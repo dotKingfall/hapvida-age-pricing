@@ -1,7 +1,7 @@
 <template>
   <div class="mt-2">
     <div class="reference">
-      {{ $labels.pricingtable_reference_label }} {{ currentReference }} {{ currentDiscount }}
+      {{ $labels.referencelabel_title }} {{ currentReference }} {{ currentDiscount }}
     </div>
   </div>
 </template>
@@ -21,8 +21,8 @@ const currentReference = computed(() => {
   const index = appStore.selectedPlanIndex
   const referenceIndex = index - 1 // Adjust for zero-based array
     return ageOperationsStore.ageInput.length <= 1
-      ? labels.reference_names[referenceIndex][0]
-      : labels.reference_names[referenceIndex][1]
+      ? labels.referencelabel_plan_names[referenceIndex][0]
+      : labels.referencelabel_plan_names[referenceIndex][1]
 })
 
 const currentDiscount = computed(() => {

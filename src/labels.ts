@@ -27,9 +27,9 @@ export const plan_names = [
   "Smart 200 Up", // 2
 ];
 
-//PricingTable
-export const pricingtable_reference_label = "REFERÊNCIA: "
-export const reference_names = [
+//ReferenceLabel
+export const referencelabel_title = "REFERÊNCIA: "
+export const referencelabel_plan_names = [
   ["Notrelife Individual", "Notrelife Familiar"],
   ["Notrelife 50+ Individual", "Notrelife 50+ Familiar"],
   ["Nosso Médico Individual (1 Vida)", "Nosso Médico Individual (2+ Vidas)"],
@@ -37,3 +37,7 @@ export const reference_names = [
   ["Smart 200 (1 Vida)", "Smart 200 (2+ Vidas)"],
   ["Smart 200 Up (1 Vida)", "Smart 200 Up (2+ Vidas)"],
 ]
+
+//PricingTables
+export const pricingtables_coparticipation_title = "COM COPARTICIPAÇÃO"
+export const pricingtables_nocoparticipation_title = "SEM COPARTICIPAÇÃO"

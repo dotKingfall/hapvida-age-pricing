@@ -22,6 +22,7 @@ export default createVuetify({
           primary: '#981482',
           accent: '#C51AA9',
           light_bg: '#F3E7F3',
+          light_bg_accent: '#C172B4',
         },
       },
       
