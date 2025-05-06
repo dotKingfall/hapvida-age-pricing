@@ -107,9 +107,27 @@ onUnmounted(() => {
   overflow-y: auto;
   padding: .3rem .5rem .5rem .3rem;
 
+  /* WebKit browsers (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: c.$primary;
+    border-radius: 4px;
+  }
+
+  /* Firefox */
+  scrollbar-width: 10px;
+  scrollbar-color: c.$primary transparent;
+
   @media screen and (min-width: s.$desktop-width) {
-    min-height: 60vh;
-    max-height: 60vh;
+    min-height: 55vh;
+    max-height: 55vh;
   }
 
   @media screen and (max-width: s.$mobile-width) {
