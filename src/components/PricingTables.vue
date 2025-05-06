@@ -1,6 +1,6 @@
-```vue
 <template>
   <div class="tables-parent">
+
     <!-- COM COPARTICIPAÇÃO -->
     <v-card variant="tonal" color="light_bg_accent" class="tables-content">
       <div class="info-body">
@@ -13,7 +13,7 @@
             @click="copyText('with-cop')"
           />
         </div>
-        <div id="with-cop" contenteditable="true">
+        <div id="with-cop" contenteditable="true" ref="withCop">
           <div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div>
         </div>
       </div>
@@ -36,7 +36,7 @@
             @click="copyText('no-cop')"
           />
         </div>
-        <div id="no-cop" contenteditable="true">
+        <div id="no-cop" contenteditable="true" ref="noCop">
           <div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div>
         </div>
       </div>
@@ -45,6 +45,10 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const withCop = ref<HTMLElement | null>(null);
+const noCop = ref<HTMLElement | null>(null);
 
 const copyText = async (id: string) => {
   try {
@@ -60,6 +64,27 @@ const copyText = async (id: string) => {
     alert('Failed to copy text.');
   }
 };
+
+// Sync scroll function
+const syncScroll = (source: HTMLElement, target: HTMLElement) => {
+  target.scrollTop = source.scrollTop;
+};
+
+// ADD LISTENERS
+onMounted(() => {
+  if (withCop.value && noCop.value) {
+    withCop.value.addEventListener('scroll', () => syncScroll(withCop.value!, noCop.value!));
+    noCop.value.addEventListener('scroll', () => syncScroll(noCop.value!, withCop.value!));
+  }
+});
+
+// REMOVE LISTENERS
+onUnmounted(() => {
+  if (withCop.value && noCop.value) {
+    withCop.value.removeEventListener('scroll', () => syncScroll(withCop.value!, noCop.value!));
+    noCop.value.removeEventListener('scroll', () => syncScroll(noCop.value!, withCop.value!));
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -80,6 +105,7 @@ const copyText = async (id: string) => {
 
 #with-cop, #no-cop{
   overflow-y: auto;
+  padding: .3rem .5rem .5rem .3rem;
 
   @media screen and (min-width: s.$desktop-width) {
     min-height: 60vh;
@@ -143,5 +169,9 @@ const copyText = async (id: string) => {
   &:hover {
     transform: translateY(-10%) scale(1.2);
   }
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
 }
 </style>
