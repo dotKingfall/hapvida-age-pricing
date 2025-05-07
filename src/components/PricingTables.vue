@@ -14,7 +14,7 @@
           />
         </div>
         <div id="with-cop" contenteditable="true" ref="withCop">
-          <div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div>
+          {{ ageOperations.agePrices }}
         </div>
       </div>
     </v-card>
@@ -37,7 +37,7 @@
           />
         </div>
         <div id="no-cop" contenteditable="true" ref="noCop">
-          <div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div><div>a</div>
+          {{ appStore.selectedPlans }}
         </div>
       </div>
     </v-card>
@@ -46,6 +46,11 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useAppStore } from '@/stores/app';
+import { useAgeOperationsStore } from '@/stores/ageOperations';
+
+const appStore = useAppStore()
+const ageOperations = useAgeOperationsStore()
 
 const withCop = ref<HTMLElement | null>(null);
 const noCop = ref<HTMLElement | null>(null);
@@ -131,14 +136,14 @@ onUnmounted(() => {
   }
 
   @media screen and (max-width: s.$mobile-width) {
-    min-height: 50vh;
-    max-height: 50vh;
+    min-height: 48vh;
+    max-height: 48vh;
   }
 }
 
 .tables-content {
   border: 2px solid transparent;
-  flex-grow: 1;
+  flex: 0 0 42%;
   margin: 0 5em;
 
   &:hover{

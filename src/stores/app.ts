@@ -17,7 +17,7 @@ export const useAppStore = defineStore('app', {
     smartColData: null as Plan | null,
     smartUpIndData: null as Plan | null,
     smartUpColData: null as Plan | null,
-    selectedPlans: null as any[] | null,
+    selectedPlans: [] as (Plan | null)[],
     selectedPlanIndex: 1 as number,
   }),
 
@@ -109,7 +109,7 @@ export const useAppStore = defineStore('app', {
               break
           }
         }
-        // Initialize selectedPlans with default group (groupId 1)
+
         this.selectedPlans = this.getGroup(this.selectedPlanIndex)
       } catch (error) {
         console.error('Error loading CSV files:', error)
@@ -142,8 +142,8 @@ export const useAppStore = defineStore('app', {
         default:
           plans = [null]
       }
-      // Update selectedPlans and selectedPlanIndex
-      this.selectedPlans = plans as Plan[] | null
+
+      this.selectedPlans = plans
       this.selectedPlanIndex = groupId
       return plans
     },

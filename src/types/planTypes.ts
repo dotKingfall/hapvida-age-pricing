@@ -39,6 +39,40 @@ export class Plan {
       tiers: this.tiers.map(tier => tier.toJSON())
     };
   }
+
+  //GET AGE FUNCTION
+  // GET AGE FUNCTION
+  public getAgePrice(age: number): { age: number, range: string, enf: (number | null)[], amb: (number | null)[], apt: (number | null)[] } {
+    let rangeStart = 0;
+    let selectedTier: Tier | null = null;
+
+    // Find the appropriate tier based on age
+    for (const tier of this.tiers) {
+      const rangeEnd = tier.getRange();
+      if (age >= rangeStart && age <= rangeEnd) {
+        selectedTier = tier;
+        break;
+      }
+      rangeStart = rangeEnd + 1;
+    }
+
+    // If no tier is found, use the last tier
+    if (!selectedTier && this.tiers.length > 0) {
+      selectedTier = this.tiers[this.tiers.length - 1];
+      rangeStart = this.tiers[this.tiers.length - 2]?.getRange() + 1 || 59;
+    }
+
+    const rangeEnd = selectedTier ? selectedTier.getRange() : 1000;
+    const rangeString = `${rangeStart.toString().padStart(2, '0')} a ${rangeEnd.toString().padStart(2, '0')}`;
+
+    return {
+      age,
+      range: rangeString,
+      enf: selectedTier ? selectedTier.getEnf() : [null, null],
+      amb: selectedTier ? selectedTier.getAmb() : [null, null],
+      apt: selectedTier ? selectedTier.getApt() : [null, null],
+    };
+  }
 }
 
 export class Tier {
