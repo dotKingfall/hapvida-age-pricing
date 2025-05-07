@@ -22,4 +22,4 @@ registerPlugins(app)
 app.mount('#app')
 
 const appStore = useAppStore()
-appStore.loadAllPriceTables()
+appStore.loadAndParseAllCsvFiles()

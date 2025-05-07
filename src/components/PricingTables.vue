@@ -13,9 +13,9 @@
             @click="copyText('with-cop')"
           />
         </div>
-        <div id="with-cop" contenteditable="true" ref="withCop">
-          {{ ageOperations.agePrices }}
-        </div>
+        
+        <!-- FIELD WITH COP -->
+        <div id="with-cop" contenteditable="true" ref="withCop">{{ formattedData }}</div>
       </div>
     </v-card>
 
@@ -23,6 +23,8 @@
       :vertical="$vuetify.display.mdAndUp"
       class="divider"
     />
+
+    <div>{{ appStore.selectedPlans }}</div>
 
     <!-- SEM COPARTICIPAÇÃO -->
     <v-card variant="tonal" color="light_bg_accent" class="tables-content">
@@ -36,9 +38,9 @@
             @click="copyText('no-cop')"
           />
         </div>
-        <div id="no-cop" contenteditable="true" ref="noCop">
-          {{ appStore.selectedPlans }}
-        </div>
+
+        <!-- FIELD NO COP -->
+        <div id="no-cop" contenteditable="true" ref="noCop">{{ formattedData }}</div>
       </div>
     </v-card>
   </div>
@@ -48,12 +50,17 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useAppStore } from '@/stores/app';
 import { useAgeOperationsStore } from '@/stores/ageOperations';
+import { formatPricingData } from '@/utils/outputFormatter';
 
 const appStore = useAppStore()
 const ageOperations = useAgeOperationsStore()
 
 const withCop = ref<HTMLElement | null>(null);
 const noCop = ref<HTMLElement | null>(null);
+
+const formattedData = computed(() => { //TODO HERE
+  return appStore.spPlans;
+});
 
 const copyText = async (id: string) => {
   try {

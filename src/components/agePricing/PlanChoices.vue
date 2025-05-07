@@ -1,33 +1,36 @@
+```vue
 <template>
   <div>
     <v-select
       color="primary"
       class="plan-select"
-      :label="$labels.plan_label"
       :items="planItems"
       v-model="appStore.selectedPlanIndex"
       @update:modelValue="handlePlanChange"
+      item-title="title"
+      item-value="value"
+      :label="$labels.plan_label"
     ></v-select>
   </div>
 </template>
 
 <script lang="ts" setup>
-import * as labels from '@/labels'
 import { computed } from 'vue'
 import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
 
 const planItems = computed(() => {
-  return labels.plan_names.map((name, index) => ({
-    value: index + 1,
-    title: name,
+  return appStore.spPlans.map(plan => ({
+    title: plan.getName(),
+    value: plan.getId()
   }))
 })
 
-// HANDLE PLAN CHANGE
-const handlePlanChange = (groupId: number) => {
-  appStore.getGroup(groupId)
+// Handle plan selection change
+const handlePlanChange = (newId: number) => {
+  appStore.selectedPlanIndex = newId
+  appStore.selectedPlan = appStore.spPlans.find(plan => plan.getId() === newId) || null
 }
 </script>
 
