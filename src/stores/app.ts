@@ -75,6 +75,7 @@ export const useAppStore = defineStore('app', {
         const parsedFiles = await this.loadFiles(csvFiles)
         this.spPlans = this.createPlans(parsedFiles)
         this.assignPlansToState(parsedFiles)
+        this.selectedPlan = this.spPlans[0]
       } catch (error) {
         console.error('Error loading and parsing CSV files:', error)
       } finally {

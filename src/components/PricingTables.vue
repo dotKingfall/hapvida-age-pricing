@@ -15,7 +15,7 @@
         </div>
         
         <!-- FIELD WITH COP -->
-        <div id="with-cop" contenteditable="true" ref="withCop">{{ formattedData }}</div>
+        <div id="with-cop" contenteditable="true" ref="withCop">{{ formattedData.withCop }}</div>
       </div>
     </v-card>
 
@@ -23,8 +23,6 @@
       :vertical="$vuetify.display.mdAndUp"
       class="divider"
     />
-
-    <div>{{ appStore.selectedPlans }}</div>
 
     <!-- SEM COPARTICIPAÇÃO -->
     <v-card variant="tonal" color="light_bg_accent" class="tables-content">
@@ -40,7 +38,7 @@
         </div>
 
         <!-- FIELD NO COP -->
-        <div id="no-cop" contenteditable="true" ref="noCop">{{ formattedData }}</div>
+        <div id="no-cop" contenteditable="true" ref="noCop">{{ formattedData.noCop }}</div>
       </div>
     </v-card>
   </div>
@@ -48,19 +46,15 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useAppStore } from '@/stores/app';
 import { useAgeOperationsStore } from '@/stores/ageOperations';
 import { formatPricingData } from '@/utils/outputFormatter';
 
-const appStore = useAppStore()
 const ageOperations = useAgeOperationsStore()
 
 const withCop = ref<HTMLElement | null>(null);
 const noCop = ref<HTMLElement | null>(null);
 
-const formattedData = computed(() => { //TODO HERE
-  return appStore.spPlans;
-});
+const formattedData = computed(() => formatPricingData(ageOperations.agePrices))
 
 const copyText = async (id: string) => {
   try {
@@ -77,7 +71,6 @@ const copyText = async (id: string) => {
   }
 };
 
-// Sync scroll function
 const syncScroll = (source: HTMLElement, target: HTMLElement) => {
   target.scrollTop = source.scrollTop;
 };

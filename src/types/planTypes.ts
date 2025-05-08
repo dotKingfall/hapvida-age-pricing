@@ -1,5 +1,3 @@
-import { useAppStore } from "@/stores/app";
-
 export class Plan {
   constructor(
     public id: number,
@@ -96,4 +94,11 @@ export class Tier {
       apt: this.apt
     };
   }
+}
+
+// Define PriceData type for use in stores
+export type PriceData = {
+  age: number
+  range: string
+  tier: Tier
 }
