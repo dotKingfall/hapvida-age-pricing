@@ -41,3 +41,6 @@ export const referencelabel_plan_names = [
 //PricingTables
 export const pricingtables_coparticipation_title = "COM COPARTICIPAÇÃO"
 export const pricingtables_nocoparticipation_title = "SEM COPARTICIPAÇÃO"
+export const pricingtables_enf_title = "ENFERMARIA"
+export const pricingtables_amb_title = "AMBULATORIAL"
+export const pricingtables_apt_title = "APARTAMENTO"

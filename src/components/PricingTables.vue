@@ -1,5 +1,43 @@
 <template>
   <div class="tables-parent">
+    <!-- SEM COPARTICIPAÇÃO -->
+    <v-card variant="tonal" color="light_bg_accent" class="tables-content">
+      <div class="info-body">
+        <div class="payment-category">
+          <div class="title">{{ $labels.pricingtables_nocoparticipation_title }}</div>
+          <v-icon
+            class="copy-icon"
+            icon="mdi-content-copy"
+            size="20"
+            @click="copyText('no-cop-outline')"
+          />
+        </div>
+
+        <!-- FIELD NO COP -->
+        <div id="no-cop-outline" contenteditable="true" ref="noCop">
+          <div class="mod-title" v-if="hasNonNullField(formattedData.noCop, 'enf')">
+            <b>{{ $labels.pricingtables_enf_title }}</b>
+            <div v-for="item in formattedData.noCop" :key="item.age" class="price">
+              {{ globalConfig.showRange ? `${item.range}` : `${item.age} anos` }}: {{ formatPrice(item.tier.enf) }}
+            </div>
+          </div>
+          <div class="mod-title" v-if="hasNonNullField(formattedData.noCop, 'amb')">
+            <b>{{ $labels.pricingtables_amb_title }}</b>
+            <div v-for="item in formattedData.noCop" :key="item.age" class="price">
+              {{ globalConfig.showRange ? `${item.range}` : `${item.age} anos` }}: {{ formatPrice(item.tier.amb) }}
+            </div>
+          </div>
+          <div class="mod-title" v-if="hasNonNullField(formattedData.noCop, 'apt')">
+            <b>{{ $labels.pricingtables_apt_title }}</b>
+            <div v-for="item in formattedData.noCop" :key="item.age" class="price">
+              {{ globalConfig.showRange ? `${item.range}` : `${item.age} anos` }}: {{ formatPrice(item.tier.apt) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </v-card>
+
+    <v-divider :vertical="$vuetify.display.mdAndUp" class="divider" />
 
     <!-- COM COPARTICIPAÇÃO -->
     <v-card variant="tonal" color="light_bg_accent" class="tables-content">
@@ -10,51 +48,77 @@
             class="copy-icon"
             icon="mdi-content-copy"
             size="20"
-            @click="copyText('with-cop')"
+            @click="copyText('with-cop-outline')"
           />
         </div>
         
         <!-- FIELD WITH COP -->
-        <div id="with-cop" contenteditable="true" ref="withCop">{{ formattedData.withCop }}</div>
-      </div>
-    </v-card>
-
-    <v-divider
-      :vertical="$vuetify.display.mdAndUp"
-      class="divider"
-    />
-
-    <!-- SEM COPARTICIPAÇÃO -->
-    <v-card variant="tonal" color="light_bg_accent" class="tables-content">
-      <div class="info-body">
-        <div class="payment-category">
-          <div class="title">{{ $labels.pricingtables_nocoparticipation_title }}</div>
-          <v-icon
-            class="copy-icon"
-            icon="mdi-content-copy"
-            size="20"
-            @click="copyText('no-cop')"
-          />
+        <div id="with-cop-outline" contenteditable="true" ref="withCop">
+          <div class="mod-title" v-if="hasNonNullField(formattedData.withCop, 'enf')">
+            <b>{{ $labels.pricingtables_enf_title }}</b>
+            <div v-for="item in formattedData.withCop" :key="item.age" class="price">
+              {{ globalConfig.showRange ? `Range ${item.range}` : `Age ${item.age}` }}: {{ formatPrice(item.tier.enf) }}
+            </div>
+          </div>
+          <div class="mod-title" v-if="hasNonNullField(formattedData.withCop, 'amb')">
+            <b>{{ $labels.pricingtables_amb_title }}</b>
+            <div v-for="item in formattedData.withCop" :key="item.age" class="price">
+              {{ globalConfig.showRange ? `Range ${item.range}` : `Age ${item.age}` }}: {{ formatPrice(item.tier.amb) }}
+            </div>
+          </div>
+          <div class="mod-title" v-if="hasNonNullField(formattedData.withCop, 'apt')">
+            <b>{{ $labels.pricingtables_apt_title }}</b>
+            <div v-for="item in formattedData.withCop" :key="item.age" class="price">
+              {{ globalConfig.showRange ? `Range ${item.range}` : `Age ${item.age}` }}: {{ formatPrice(item.tier.apt) }}
+            </div>
+          </div>
         </div>
-
-        <!-- FIELD NO COP -->
-        <div id="no-cop" contenteditable="true" ref="noCop">{{ formattedData.noCop }}</div>
       </div>
     </v-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { useAgeOperationsStore } from '@/stores/ageOperations';
 import { formatPricingData } from '@/utils/outputFormatter';
+import { useGlobalConfigStore } from '@/stores/globalConfig';
 
-const ageOperations = useAgeOperationsStore()
+// Initialize BRL formatter
+const brlFormatter = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const ageOperations = useAgeOperationsStore();
+const globalConfig = useGlobalConfigStore();
 
 const withCop = ref<HTMLElement | null>(null);
 const noCop = ref<HTMLElement | null>(null);
 
-const formattedData = computed(() => formatPricingData(ageOperations.agePrices))
+const formattedData = computed(() => {
+  const data = formatPricingData(ageOperations.agePrices);
+  return {
+    withCop: data.withCop || [],
+    noCop: data.noCop || []
+  };
+});
+
+// Format price as BRL or return 'N/A' if null
+const formatPrice = (value: number | null): string => {
+  if (value === null) return 'N/A';
+  return brlFormatter.format(value);
+};
+
+// Check if any value for a given field (enf, amb, apt) is non-null in the data array
+const hasNonNullField = (
+  data: { tier: { enf: number | null; amb: number | null; apt: number | null } }[],
+  field: 'enf' | 'amb' | 'apt'
+): boolean => {
+  return data.some(item => item.tier[field] !== null);
+};
 
 const copyText = async (id: string) => {
   try {
@@ -75,7 +139,6 @@ const syncScroll = (source: HTMLElement, target: HTMLElement) => {
   target.scrollTop = source.scrollTop;
 };
 
-// ADD LISTENERS
 onMounted(() => {
   if (withCop.value && noCop.value) {
     withCop.value.addEventListener('scroll', () => syncScroll(withCop.value!, noCop.value!));
@@ -83,7 +146,6 @@ onMounted(() => {
   }
 });
 
-// REMOVE LISTENERS
 onUnmounted(() => {
   if (withCop.value && noCop.value) {
     withCop.value.removeEventListener('scroll', () => syncScroll(withCop.value!, noCop.value!));
@@ -93,6 +155,19 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
+.mod-title {
+  text-align: center;
+  font-family: "Zain", sans-serif;
+  font-size: x-large;
+  margin-bottom: 1rem;
+}
+
+.price {
+  color: black;
+  font-size: large;
+  margin-top: 0.5rem;
+}
+
 .tables-parent {
   width: 100%;
   height: 100%;
@@ -108,9 +183,10 @@ onUnmounted(() => {
   }
 }
 
-#with-cop, #no-cop{
+#with-cop-outline,
+#no-cop-outline {
   overflow-y: auto;
-  padding: .3rem .5rem .5rem .3rem;
+  padding: 0.3rem 0.5rem 0.5rem 0.3rem;
 
   /* WebKit browsers (Chrome, Safari, Edge) */
   &::-webkit-scrollbar {
@@ -146,7 +222,7 @@ onUnmounted(() => {
   flex: 0 0 42%;
   margin: 0 5em;
 
-  &:hover{
+  &:hover {
     border: 2px solid c.$primary;
   }
 
@@ -179,8 +255,8 @@ onUnmounted(() => {
   }
 }
 
-.title{
-  flex-grow: 1;;
+.title {
+  flex-grow: 1;
 }
 
 .copy-icon {

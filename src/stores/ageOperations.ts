@@ -57,6 +57,7 @@ export const useAgeOperationsStore = defineStore('ageOperations', () => {
 
   return {
     ageInput,
-    agePrices
+    agePrices,
+    getTierForAge
   }
 })
