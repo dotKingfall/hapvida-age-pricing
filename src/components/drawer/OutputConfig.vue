@@ -66,7 +66,15 @@ import { useGlobalConfigStore } from '@/stores/globalConfig';
 const globalConfig = useGlobalConfigStore();
 
 function handleSave(){
-  console.log('Save clicked');
+  globalConfig.setCustomOutputTemplates({
+    ageFormatter: globalConfig.customOutputTemplates.ageFormatter,
+    totalsFormatter: {
+      total: globalConfig.customOutputTemplates.totalsFormatter.total,
+      discount: globalConfig.customOutputTemplates.totalsFormatter.discount,
+      afterDiscount: globalConfig.customOutputTemplates.totalsFormatter.afterDiscount,
+      noDiscount: globalConfig.customOutputTemplates.totalsFormatter.noDiscount,
+    },
+  });
 }
 </script>
 
