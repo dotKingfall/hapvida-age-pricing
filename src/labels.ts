@@ -45,3 +45,22 @@ export const pricingtables_nocoparticipation_title = "SEM COPARTICIPAÇÃO"
 export const pricingtables_enf_title = "ENFERMARIA"
 export const pricingtables_amb_title = "AMBULATORIAL"
 export const pricingtables_apt_title = "APARTAMENTO"
+
+//OutputConfig
+export const outputconfig_change_price_value = ""
+export const outputconfig_change_total_value = ""
+export const outputconfig_change_discount_price_value = ""
+export const outputconfig_change_discount_value = ""
+export const outputconfig_change_discount_duration_value = ""
+
+export const outputconfig_change_price_label = "Alterar mensagem Idade: Preço"
+export const outputconfig_change_total_label = "Alterar mensagem Total: Preço"
+export const outputconfig_change_discount_price_label = "Alterar mensagem Total: Preço (com desconto)"
+export const outputconfig_change_discount_label = "Alterar mensagem Desconto: Porcentagem"
+export const outputconfig_change_discount_duration_label = "Alterar mensagem Duração: Meses"
+
+export const outputconfig_change_price_hint = "Use {label} para a idade/faixa etária e {price} para o preço."
+export const outputconfig_change_total_hint = "Use {total} para o preço total."
+export const outputconfig_change_discount_price_hint = "Use {discountedTotal} para o preço total com desconto."
+export const outputconfig_change_discount_hint = "Use {discount} para o valor do desconto."
+export const outputconfig_change_discount_duration_hint = "Use {duration} para a duração do desconto em meses."

@@ -57,7 +57,7 @@
       @update:model-value="globalConfigStore.toggleShowRange()"
     />
 
-    <v-dialog v-model="showChangeOutput" width="auto">
+    <v-dialog v-model="showChangeOutput" class="output-config-dialog">
       <OutputConfig @close="showChangeOutput = false" />
     </v-dialog>
 
@@ -135,5 +135,10 @@ watch(
 
 .discount-input {
   flex-grow: 1;
+}
+
+.output-config-dialog {
+  width: 100%;
+  max-width: 650px;
 }
 </style>
