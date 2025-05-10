@@ -47,11 +47,11 @@ export const pricingtables_amb_title = "AMBULATORIAL"
 export const pricingtables_apt_title = "APARTAMENTO"
 
 //OutputConfig
-export const outputconfig_change_price_value = ""
-export const outputconfig_change_total_value = ""
-export const outputconfig_change_discount_price_value = ""
-export const outputconfig_change_discount_value = ""
-export const outputconfig_change_discount_duration_value = ""
+export const outputconfig_change_price_value = "{label}: {price}"
+export const outputconfig_change_total_value = "Total: {total}"
+export const outputconfig_change_discount_price_value = "Total com desconto: {discountedTotal} (-{discount}%)"
+export const outputconfig_change_discount_value = "Total após {duration} meses: {discountedTotal} (-{discount}%)"
+export const outputconfig_change_discount_duration_value = "Após {duration} meses, os valores retornarão ao normal."
 
 export const outputconfig_change_price_label = "Alterar mensagem Idade: Preço"
 export const outputconfig_change_total_label = "Alterar mensagem Total: Preço"

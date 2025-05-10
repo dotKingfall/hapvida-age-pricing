@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import * as labels from '@/labels'
 
 export const useGlobalConfigStore = defineStore('globalConfig', {
   state: () => {
@@ -8,12 +9,12 @@ export const useGlobalConfigStore = defineStore('globalConfig', {
       showRange: false,
       discountDuration: 3,
       customOutputTemplates: {
-        ageFormatter: '{label}: {price}',
+        ageFormatter: labels.outputconfig_change_price_value,
         totalsFormatter: {
-          total: 'Total: {total}',
-          discount: 'Total com desconto: {discountedTotal} (-{discount}%)',
-          afterDiscount: 'Total após {duration} meses: {discountedTotal} (-{discount}%)',
-          noDiscount: 'Após {duration} meses, os valores retornarão ao normal.'
+          total: labels.outputconfig_change_total_value,
+          discount: labels.outputconfig_change_discount_price_value,
+          afterDiscount: labels.outputconfig_change_discount_value,
+          noDiscount: labels.outputconfig_change_discount_duration_value,
         }
       }
     }
