@@ -56,6 +56,13 @@
       :label="$labels.drawer_show_age_range"
       @update:model-value="globalConfigStore.toggleShowRange()"
     />
+
+    <v-dialog v-model="showChangeOutput" width="auto">
+      <OutputConfig @close="showChangeOutput = false" />
+    </v-dialog>
+
+    <!-- OPEN CUSTOM CONFIG -->
+     <v-btn @click="showChangeOutput = true" color="primary">{{ $labels.drawer_customize_output }}</v-btn>
   </div>
 </template>
 
@@ -70,8 +77,8 @@ const applyDiscount = ref(false);
 const overrideDiscount = ref(false);
 const updateDiscountDuration = ref(false);
 const showRange = ref(globalConfigStore.showRange);
+const showChangeOutput = ref(false);
 
-// preent null/undefined
 const discountValueComputed = computed({
   get: () => globalConfigStore.discountValue ?? 0,
   set: (value) => {

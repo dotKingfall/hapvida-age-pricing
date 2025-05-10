@@ -14,18 +14,14 @@ export const useAgeOperationsStore = defineStore('ageOperations', () => {
   const ageInput = ref<number[]>([])
   const agePrices = ref<PriceData[]>([])
 
-  // Access app store
   const appStore = useAppStore()
 
-  // Function to find the tier and range for an age
   const getTierForAge = (age: number): { range: string, tier: Tier } | null => {
     if (!appStore.selectedPlan) return null
 
     const tiers = appStore.selectedPlan.getTiers()
-    // Find the first tier where age is less than or equal to the range
     const tier = tiers.find(t => age <= t.getRange()) || tiers[tiers.length - 1]
 
-    // Format range string
     let rangeStr: string
     if (age >= 59) {
       rangeStr = '59 ou mais'
@@ -40,7 +36,6 @@ export const useAgeOperationsStore = defineStore('ageOperations', () => {
     return { range: rangeStr, tier }
   }
 
-  // Watch ageInput and selectedPlan to update agePrices
   watch([ageInput, () => appStore.selectedPlan], () => {
     agePrices.value = ageInput.value
       .map(age => {

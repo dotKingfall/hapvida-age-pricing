@@ -1,6 +1,7 @@
 <template>
   <div class="tables-parent">
-    <!-- SEM COPARTICIPAÇÃO -->
+
+    <!-- NO COP -->
     <v-card variant="tonal" color="light_bg_accent" class="tables-content">
       <div class="info-body">
         <div class="payment-category">
@@ -13,25 +14,27 @@
           />
         </div>
 
-        <!-- FIELD NO COP -->
         <div id="no-cop-outline" contenteditable="true" ref="noCop">
           <div class="mod-title" v-if="hasNonNullField(formattedData.noCop, 'enf')">
             <b>{{ $labels.pricingtables_enf_title }}</b>
             <div v-for="item in formattedData.noCop" :key="item.age" class="price">
-              {{ globalConfig.showRange ? `${item.range}` : `${item.age} anos` }}: {{ formatPrice(item.tier.enf) }}
+              {{ ageFormatter(item.tier.enf, item.age, item.range) }}
             </div>
+            <div class="total">{{ totalsFormatter(formattedData.noCop, 'enf') }}</div>
           </div>
           <div class="mod-title" v-if="hasNonNullField(formattedData.noCop, 'amb')">
             <b>{{ $labels.pricingtables_amb_title }}</b>
             <div v-for="item in formattedData.noCop" :key="item.age" class="price">
-              {{ globalConfig.showRange ? `${item.range}` : `${item.age} anos` }}: {{ formatPrice(item.tier.amb) }}
+              {{ ageFormatter(item.tier.amb, item.age, item.range) }}
             </div>
+            <div class="total">{{ totalsFormatter(formattedData.noCop, 'amb') }}</div>
           </div>
           <div class="mod-title" v-if="hasNonNullField(formattedData.noCop, 'apt')">
             <b>{{ $labels.pricingtables_apt_title }}</b>
             <div v-for="item in formattedData.noCop" :key="item.age" class="price">
-              {{ globalConfig.showRange ? `${item.range}` : `${item.age} anos` }}: {{ formatPrice(item.tier.apt) }}
+              {{ ageFormatter(item.tier.apt, item.age, item.range) }}
             </div>
+            <div class="total">{{ totalsFormatter(formattedData.noCop, 'apt') }}</div>
           </div>
         </div>
       </div>
@@ -39,7 +42,7 @@
 
     <v-divider :vertical="$vuetify.display.mdAndUp" class="divider" />
 
-    <!-- COM COPARTICIPAÇÃO -->
+    <!-- WITH COP -->
     <v-card variant="tonal" color="light_bg_accent" class="tables-content">
       <div class="info-body">
         <div class="payment-category">
@@ -51,26 +54,28 @@
             @click="copyText('with-cop-outline')"
           />
         </div>
-        
-        <!-- FIELD WITH COP -->
+
         <div id="with-cop-outline" contenteditable="true" ref="withCop">
           <div class="mod-title" v-if="hasNonNullField(formattedData.withCop, 'enf')">
             <b>{{ $labels.pricingtables_enf_title }}</b>
             <div v-for="item in formattedData.withCop" :key="item.age" class="price">
-              {{ globalConfig.showRange ? `Range ${item.range}` : `Age ${item.age}` }}: {{ formatPrice(item.tier.enf) }}
+              {{ ageFormatter(item.tier.enf, item.age, item.range) }}
             </div>
+            <div class="total">{{ totalsFormatter(formattedData.withCop, 'enf') }}</div>
           </div>
           <div class="mod-title" v-if="hasNonNullField(formattedData.withCop, 'amb')">
             <b>{{ $labels.pricingtables_amb_title }}</b>
             <div v-for="item in formattedData.withCop" :key="item.age" class="price">
-              {{ globalConfig.showRange ? `Range ${item.range}` : `Age ${item.age}` }}: {{ formatPrice(item.tier.amb) }}
+              {{ ageFormatter(item.tier.amb, item.age, item.range) }}
             </div>
+            <div class="total">{{ totalsFormatter(formattedData.withCop, 'amb') }}</div>
           </div>
           <div class="mod-title" v-if="hasNonNullField(formattedData.withCop, 'apt')">
             <b>{{ $labels.pricingtables_apt_title }}</b>
             <div v-for="item in formattedData.withCop" :key="item.age" class="price">
-              {{ globalConfig.showRange ? `Range ${item.range}` : `Age ${item.age}` }}: {{ formatPrice(item.tier.apt) }}
+              {{ ageFormatter(item.tier.apt, item.age, item.range) }}
             </div>
+            <div class="total">{{ totalsFormatter(formattedData.withCop, 'apt') }}</div>
           </div>
         </div>
       </div>
@@ -81,20 +86,13 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { useAgeOperationsStore } from '@/stores/ageOperations';
-import { formatPricingData } from '@/utils/outputFormatter';
 import { useGlobalConfigStore } from '@/stores/globalConfig';
+import { formatPricingData } from '@/utils/outputFormatter';
+import { ageFormatter, totalsFormatter } from '@/utils/labelsFormatter';
 
-// Initialize BRL formatter
-const brlFormatter = new Intl.NumberFormat('pt-BR', {
-  style: 'currency',
-  currency: 'BRL',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
+// Store and refs
 const ageOperations = useAgeOperationsStore();
 const globalConfig = useGlobalConfigStore();
-
 const withCop = ref<HTMLElement | null>(null);
 const noCop = ref<HTMLElement | null>(null);
 
@@ -102,22 +100,15 @@ const formattedData = computed(() => {
   const data = formatPricingData(ageOperations.agePrices);
   return {
     withCop: data.withCop || [],
-    noCop: data.noCop || []
+    noCop: data.noCop || [],
   };
 });
 
-// Format price as BRL or return 'N/A' if null
-const formatPrice = (value: number | null): string => {
-  if (value === null) return 'N/A';
-  return brlFormatter.format(value);
-};
-
-// Check if any value for a given field (enf, amb, apt) is non-null in the data array
 const hasNonNullField = (
   data: { tier: { enf: number | null; amb: number | null; apt: number | null } }[],
   field: 'enf' | 'amb' | 'apt'
 ): boolean => {
-  return data.some(item => item.tier[field] !== null);
+  return data.some((item) => item.tier[field] !== null);
 };
 
 const copyText = async (id: string) => {
@@ -130,7 +121,7 @@ const copyText = async (id: string) => {
     }
     await navigator.clipboard.writeText(text);
   } catch (err) {
-    console.error('Failed to copy text: ', err);
+    console.error('Failed to copy text:', err);
     alert('Failed to copy text.');
   }
 };
@@ -141,15 +132,23 @@ const syncScroll = (source: HTMLElement, target: HTMLElement) => {
 
 onMounted(() => {
   if (withCop.value && noCop.value) {
-    withCop.value.addEventListener('scroll', () => syncScroll(withCop.value!, noCop.value!));
-    noCop.value.addEventListener('scroll', () => syncScroll(noCop.value!, withCop.value!));
+    withCop.value.addEventListener('scroll', () =>
+      noCop.value && syncScroll(withCop.value!, noCop.value)
+    );
+    noCop.value.addEventListener('scroll', () =>
+      withCop.value && syncScroll(noCop.value!, withCop.value)
+    );
   }
 });
 
 onUnmounted(() => {
   if (withCop.value && noCop.value) {
-    withCop.value.removeEventListener('scroll', () => syncScroll(withCop.value!, noCop.value!));
-    noCop.value.removeEventListener('scroll', () => syncScroll(noCop.value!, withCop.value!));
+    withCop.value.removeEventListener('scroll', () =>
+      noCop.value && syncScroll(withCop.value!, noCop.value)
+    );
+    noCop.value.removeEventListener('scroll', () =>
+      withCop.value && syncScroll(noCop.value!, withCop.value)
+    );
   }
 });
 </script>
@@ -157,7 +156,7 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .mod-title {
   text-align: center;
-  font-family: "Zain", sans-serif;
+  font-family: 'Zain', sans-serif;
   font-size: x-large;
   margin-bottom: 1rem;
 }
@@ -165,7 +164,19 @@ onUnmounted(() => {
 .price {
   color: black;
   font-size: large;
+  margin-top: 0.3rem;
+  margin-left: 1rem;
+  text-align: start;
+}
+
+.total {
+  color: black;
+  font-size: large;
+  font-weight: bold;
   margin-top: 0.5rem;
+  margin-left: 1rem;
+  text-align: start;
+  white-space: pre;
 }
 
 .tables-parent {
@@ -203,7 +214,7 @@ onUnmounted(() => {
   }
 
   /* Firefox */
-  scrollbar-width: 10px;
+  scrollbar-width: thin;
   scrollbar-color: c.$primary transparent;
 
   @media screen and (min-width: s.$desktop-width) {
@@ -242,12 +253,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   background-color: c.$primary;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-
+  padding: 0.3rem;
   text-align: center;
   color: c.$l-text;
-  font-family: "Zain", sans-serif;
+  font-family: 'Zain', sans-serif;
   font-size: x-large;
 
   @media screen and (max-width: s.$mobile-width) {
@@ -271,6 +280,6 @@ onUnmounted(() => {
 }
 
 [contenteditable] {
-  outline: 0px solid transparent;
+  outline: 0 solid transparent;
 }
 </style>

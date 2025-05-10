@@ -11,6 +11,7 @@ declare module 'vue' {
     AgePricing: typeof import('./components/AgePricing.vue')['default']
     ApplyDiscount: typeof import('./components/drawer/ConfigList.vue')['default']
     ConfigList: typeof import('./components/drawer/ConfigList.vue')['default']
+    OutputConfig: typeof import('./components/drawer/OutputConfig.vue')['default']
     PlanChoices: typeof import('./components/agePricing/PlanChoices.vue')['default']
     PricingTables: typeof import('./components/PricingTables.vue')['default']
     ReferenceLabel: typeof import('./components/ReferenceLabel.vue')['default']

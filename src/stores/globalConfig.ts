@@ -2,15 +2,22 @@ import { defineStore } from 'pinia'
 
 export const useGlobalConfigStore = defineStore('globalConfig', {
   state: () => {
-    // Define default configuration
     const defaultConfig = {
       discountValue: 0,
       baseDiscount: 7,
       showRange: false,
       discountDuration: 3,
+      customOutputTemplates: {
+        ageFormatter: '{label}: {price}',
+        totalsFormatter: {
+          total: 'Total: {total}',
+          discount: 'Total com desconto: {discountedTotal} (-{discount}%)',
+          afterDiscount: 'Total após {duration} meses: {discountedTotal} (-{discount}%)',
+          noDiscount: 'Após {duration} meses, os valores retornarão ao normal.'
+        }
+      }
     }
 
-    // Load initial state from localStorage, or use defaults
     const savedConfig = localStorage.getItem('globalConfig')
     let config = defaultConfig
     if (savedConfig) {
@@ -25,26 +32,26 @@ export const useGlobalConfigStore = defineStore('globalConfig', {
     return config
   },
   actions: {
-    // Update discount settings
     setDiscountSettings({ value, base, duration }: { value: number; base: number; duration: number }) {
       this.discountValue = value
       this.baseDiscount = base
       this.discountDuration = duration
       this.saveToLocalStorage()
     },
-    // Toggle showRange
     toggleShowRange() {
       this.showRange = !this.showRange
       this.saveToLocalStorage()
     },
-    
-    // Save state to localStorage
+    setCustomOutputTemplates(templates: { ageFormatter?: string; totalsFormatter?: any }) {
+      this.customOutputTemplates = { ...this.customOutputTemplates, ...templates }
+      this.saveToLocalStorage()
+    },
     saveToLocalStorage() {
       try {
         localStorage.setItem('globalConfig', JSON.stringify(this.$state))
       } catch (error) {
         console.error('Failed to save globalConfig to localStorage:', error)
       }
-    },
-  },
+    }
+  }
 })
