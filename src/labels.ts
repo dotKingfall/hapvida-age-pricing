@@ -1,6 +1,7 @@
 //AppBar
 export const appbar_last_updated = "Maio/2025"
 export const appbar_title = "ORÇAMENTO EDITÁVEL SP" 
+export const appbar_change_theme = "TROCAR TEMA"
 
 //Drawer
 export const drawer_title = "CONFIGURAÇÕES"

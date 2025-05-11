@@ -2,7 +2,7 @@
   <div class="tables-parent">
 
     <!-- NO COP -->
-    <v-card variant="tonal" color="light_bg_accent" class="tables-content">
+    <v-card variant="tonal" class="tables-content">
       <div class="info-body">
         <div class="payment-category">
           <div class="title">{{ $labels.pricingtables_nocoparticipation_title }}</div>
@@ -43,7 +43,7 @@
     <v-divider :vertical="$vuetify.display.mdAndUp" class="divider" />
 
     <!-- WITH COP -->
-    <v-card variant="tonal" color="light_bg_accent" class="tables-content">
+    <v-card variant="tonal" class="tables-content">
       <div class="info-body">
         <div class="payment-category">
           <div class="title">{{ $labels.pricingtables_coparticipation_title }}</div>
@@ -159,10 +159,11 @@ onUnmounted(() => {
   font-family: 'Zain', sans-serif;
   font-size: x-large;
   margin-bottom: 1rem;
+  color: var(--text-accent);
 }
 
 .price {
-  color: black;
+  color: var(--text-output);
   font-size: large;
   margin-top: 0.3rem;
   margin-left: 1rem;
@@ -170,7 +171,7 @@ onUnmounted(() => {
 }
 
 .total {
-  color: black;
+  color: var(--text-output);
   font-size: large;
   font-weight: bold;
   margin-top: 0.5rem;
@@ -198,6 +199,7 @@ onUnmounted(() => {
 #no-cop-outline {
   overflow-y: auto;
   padding: 0.3rem 0.5rem 0.5rem 0.3rem;
+  background-color: var(--bg-accent);
 
   /* WebKit browsers (Chrome, Safari, Edge) */
   &::-webkit-scrollbar {
@@ -209,13 +211,13 @@ onUnmounted(() => {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: c.$primary;
+    background-color: var(--primary);
     border-radius: 4px;
   }
 
   /* Firefox */
   scrollbar-width: thin;
-  scrollbar-color: c.$primary transparent;
+  scrollbar-color: var(--primary) transparent;
 
   @media screen and (min-width: s.$desktop-width) {
     min-height: 55vh;
@@ -234,7 +236,7 @@ onUnmounted(() => {
   margin: 0 5em;
 
   &:hover {
-    border: 2px solid c.$primary;
+    border: 2px solid var(--accent);
   }
 
   @media screen and (max-width: s.$mobile-width) {
@@ -252,10 +254,10 @@ onUnmounted(() => {
 .payment-category {
   display: flex;
   align-items: center;
-  background-color: c.$primary;
+  background-color: var(--accent);
   padding: 0.3rem;
   text-align: center;
-  color: c.$l-text;
+  color: var(--text);
   font-family: 'Zain', sans-serif;
   font-size: x-large;
 
@@ -266,11 +268,13 @@ onUnmounted(() => {
 
 .title {
   flex-grow: 1;
+  color: var(--foreground);
 }
 
 .copy-icon {
   position: absolute;
   right: 1rem;
+  color: var(--foreground);
   cursor: pointer;
   transition: transform 0.3s ease;
 

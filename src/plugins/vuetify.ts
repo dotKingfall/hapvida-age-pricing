@@ -1,10 +1,3 @@
-/**
- * plugins/vuetify.ts
- *
- * Framework documentation: https://vuetifyjs.com`
- */
-
-// Styles
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
@@ -19,14 +12,22 @@ export default createVuetify({
       light: {
         dark: false,
         colors: {
-          primary: '#981482',
-          accent: '#C51AA9',
-          light_bg: '#F3E7F3',
-          light_bg_accent: '#C172B4',
+          'primary': '#981482',
+          'accent': '#C51AA9',
+          'bg': '#F3E7F3',
+          'bg_accent': '#C172B4',
         },
       },
       
-      dark: {}, //TODO MAYBE
+      dark: {
+        dark: false,
+        colors: {
+          'primary': '#221B27',
+          'accent': '#281A3D',
+          'bg': '#221B27',
+          'bg_accent': '#981482',
+        },
+      },
     },
   },
 })

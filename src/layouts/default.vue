@@ -1,7 +1,12 @@
 <template>
   <v-app>
     <!-- TOP BAR -->
-    <v-app-bar class="top-bar" :elevation="2" height="85" app>
+    <v-app-bar
+      class="top-bar"
+      :elevation="2"
+      height="85"
+      app
+    >
       <!-- MENU ICON-->
       <template #prepend>
         <v-app-bar-nav-icon
@@ -17,6 +22,13 @@
           <span class="ml-1 mt-1">{{ $labels.appbar_last_updated }}</span>
         </div>
       </v-app-bar-title>
+
+      <v-btn
+        variant="outlined"
+        @click="toggleTheme"
+      >
+        <div>{{ $labels.appbar_change_theme }}</div>
+      </v-btn>
 
       <v-divider inset vertical :thickness="4" class="mx-2" />
 
@@ -40,10 +52,11 @@
     </v-app-bar>
 
     <v-navigation-drawer
-      class="bg-light_bg drawer"
+      class="drawer"
       v-model="isDrawerOpen"
       :width="drawerSize"
       temporary
+      :color="colors.bg.value"
     >
       <div class="drawer-title">
         <v-icon color="primary" size="3.5vh">mdi-cog</v-icon>
@@ -77,13 +90,16 @@
 
 <script lang="ts" setup>
 import ApplyDiscount from '@/components/drawer/ConfigList.vue'
-import { ref, computed } from 'vue'
-import { useDisplay } from 'vuetify'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useDisplay, useTheme } from 'vuetify'
 import { useAppStore } from '@/stores/app'
+import { useThemeColors } from '@/styles/colors'
 
 const appStore = useAppStore()
 const isDrawerOpen = ref(false)
+const theme = useTheme()
 const { mobile } = useDisplay()
+const colors = useThemeColors()
 
 const drawerSize = computed(() => {
   return mobile.value ? 280 : 500
@@ -92,11 +108,49 @@ const drawerSize = computed(() => {
 const drawerItems = [
   ApplyDiscount,
 ]
+
+const rootStyles = computed(() => ({
+  '--primary': colors.primary.value,
+  '--accent': colors.accent.value,
+  '--text': colors.text.value,
+  '--bg': colors.bg.value,
+  '--bg-accent': colors.bg_accent.value,
+}))
+
+const applyRootStyles = () => {
+  console.log('Applying root styles:', rootStyles.value)
+  const style = document.documentElement.style
+  Object.entries(rootStyles.value).forEach(([key, value]) => {
+    style.setProperty(key, value)
+  })
+}
+
+// Load saved theme and apply styles on mount
+onMounted(() => {
+  const savedTheme = localStorage.getItem('theme')
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    theme.global.name.value = savedTheme
+  }
+
+  applyRootStyles()
+})
+
+// Watch for theme or color changes
+watch(rootStyles, () => {
+  applyRootStyles()
+})
+
+function toggleTheme() {
+  const newTheme = theme.global.name.value === 'light' ? 'dark' : 'light'
+  theme.global.name.value = newTheme
+  localStorage.setItem('theme', newTheme)
+  console.log('Theme switched to:', newTheme, 'Saved to localStorage')
+}
 </script>
 
 <style scoped lang="scss">
 .drawer-title {
-  color: c.$primary;
+  color: var(--primary);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   display: flex;
@@ -110,7 +164,7 @@ const drawerItems = [
 }
 
 .app-outline {
-  background-color: c.$l-bg;
+  background-color: var(--bg);
 
   .app-padding {
     padding: 15px;
@@ -120,10 +174,10 @@ const drawerItems = [
 .top-bar {
   background: linear-gradient(
     18deg,
-    c.$primary,
-    c.$accent
+    var(--primary),
+    var(--accent)
   ) !important;
-  color: c.$l-text !important;
+  color: var(--text) !important;
 }
 
 .appbar-title {
@@ -133,7 +187,7 @@ const drawerItems = [
   display: flex;
   align-items: center;
 
-  @media screen and (max-width: s.$mobile-width) {
+  @media screen and (max-width: 600px) {
     font-size: large;
   }
 }
