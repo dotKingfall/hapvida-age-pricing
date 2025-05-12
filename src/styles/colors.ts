@@ -30,20 +30,22 @@ const themeColors = {
   },
 }
 
+
 export function useThemeColors() {
   const theme = useTheme()
+  const color = themeColors[theme.global.name.value as 'light' | 'dark'];
 
-  const primary = computed(() => themeColors[theme.global.name.value].primary)
-  const accent = computed(() => themeColors[theme.global.name.value].accent)
-  const text = computed(() => themeColors[theme.global.name.value].text)
-  const text_accent = computed(() => themeColors[theme.global.name.value].text_accent)
-  const text_output = computed(() => themeColors[theme.global.name.value].text_output)
-  const foreground = computed(() => themeColors[theme.global.name.value].foreground)
-  const overlay = computed(() => themeColors[theme.global.name.value].overlay)
-  const hover_overlay = computed(() => themeColors[theme.global.name.value].hover_overlay)
-  const bg = computed(() => themeColors[theme.global.name.value].bg)
-  const bg_accent = computed(() => themeColors[theme.global.name.value].bg_accent)
-  const bg_output_outline = computed(() => themeColors[theme.global.name.value].bg_output_outline)
+  const primary = computed(() => color.primary)
+  const accent = computed(() => color.accent)
+  const text = computed(() => color.text)
+  const text_accent = computed(() => color.text_accent)
+  const text_output = computed(() => color.text_output)
+  const foreground = computed(() => color.foreground)
+  const overlay = computed(() => color.overlay)
+  const hover_overlay = computed(() => color.hover_overlay)
+  const bg = computed(() => color.bg)
+  const bg_accent = computed(() => color.bg_accent)
+  const bg_output_outline = computed(() => color.bg_output_outline)
 
   return {
     primary,
