@@ -1,6 +1,7 @@
 <template>
   <v-app :style="rootStyles">
     <SpeedInsights />
+    <Analytics/>
     <router-view />
   </v-app>
 </template>
@@ -8,6 +9,7 @@
 <script lang="ts" setup>
 import { useThemeColors } from '@/styles/colors'
 import { SpeedInsights } from "@vercel/speed-insights/vue"
+import { Analytics } from "@vercel/analytics/vue"
 
 const colors = useThemeColors()
 

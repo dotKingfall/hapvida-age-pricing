@@ -1,4 +1,3 @@
-// src/utils/fileLoader.ts
 export async function loadFileData(fileName: string): Promise<string> {
   try {
     const response = await fetch(`/data/${fileName}`)
