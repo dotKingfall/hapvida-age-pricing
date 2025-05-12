@@ -22,4 +22,6 @@ const rootStyles = computed(() => ({
   '--bg-accent': colors.bg_accent.value,
   '--bg-output-outline': colors.bg_output_outline.value,
 }))
+
+//"build": "run-p type-check \"build-only {@}\" --",
 </script>
