@@ -84,12 +84,10 @@
 
       <router-view v-else class="app-padding" />
     </v-main>
-    <SpeedInsights/>
   </v-app>
 </template>
 
 <script lang="ts" setup>
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import ApplyDiscount from '@/components/drawer/ConfigList.vue'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useDisplay, useTheme } from 'vuetify'
