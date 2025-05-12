@@ -6,6 +6,10 @@
   color: var(--text);
 }
 
+.v-theme-dark .v-field__outline{
+  background: var(--text-accent);
+}
+
 .v-theme--dark .activator-checkbox .v-selection-control .mdi-checkbox-marked{
   color: var(--foreground);
 }

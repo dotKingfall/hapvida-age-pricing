@@ -3,7 +3,7 @@
     <v-text-field
     ref="ageTextField"
       v-model="input"
-      color="primary"
+      :color="theme.global.name.value === 'light' ? 'primary' : ''"
       :label="$labels.textinput_age_label"
       :rules="[intSpaceRule]"
       :hint="$labels.textinput_separate_by_blank_space"
@@ -26,8 +26,10 @@ import { ref } from 'vue'
 import type { VTextField } from 'vuetify/components'
 import { useAgeOperationsStore } from '@/stores/ageOperations'
 import { useAppStore } from '@/stores/app';
+import { useTheme } from 'vuetify'
 import * as labels from '@/labels'
 
+const theme = useTheme()
 const appStore = useAppStore()
 const ageTextField = ref<InstanceType<typeof VTextField> | null>(null)
   const ageOperationsStore = useAgeOperationsStore()

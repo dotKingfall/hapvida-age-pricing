@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-select
-      color="primary"
       class="plan-select"
       :items="planItems"
+      :color="theme.global.name.value === 'light' ? 'primary' : ''"
       v-model="appStore.selectedPlanIndex"
       @update:modelValue="handlePlanChange"
       item-title="title"
@@ -16,7 +16,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useAppStore } from '@/stores/app'
+import { useTheme } from 'vuetify'
 
+const theme = useTheme()
 const appStore = useAppStore()
 
 const planItems = computed(() => {
@@ -43,7 +45,7 @@ const handlePlanChange = (newId: number) => {
   }
 
   :deep(.v-theme--dark .v-label.v-field-label--floating.text-primary) {
-    color: var(--text-accent) !important; /* Replace with your desired color */
+    color: var(--text-accent) !important;
   }
 }
 </style>
