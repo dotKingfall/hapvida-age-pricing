@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import { useThemeColors } from '@/styles/colors'
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/vue"
 
 const colors = useThemeColors()
 
