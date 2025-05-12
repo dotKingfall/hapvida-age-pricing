@@ -2,7 +2,6 @@ import { useGlobalConfigStore } from '@/stores/globalConfig'
 import { useAppStore } from '@/stores/app'
 import { useAgeOperationsStore } from '@/stores/ageOperations'
 
-// Initialize BRL formatter for Brazilian Real
 export const brlFormatter = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL',
@@ -10,7 +9,6 @@ export const brlFormatter = new Intl.NumberFormat('pt-BR', {
   maximumFractionDigits: 2,
 })
 
-// Format price with age or range label
 export const ageFormatter = (
   value: number | null,
   age: number,

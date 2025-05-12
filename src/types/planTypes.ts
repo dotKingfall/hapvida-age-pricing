@@ -85,7 +85,6 @@ export class Tier {
     this.apt = apt;
   }
 
-  // toJSON method
   public toJSON(): object {
     return {
       range: this.range,
@@ -96,9 +95,15 @@ export class Tier {
   }
 }
 
-// Define PriceData type for use in stores
+export interface OutputTier {
+  range: number | null
+  enf: number | null
+  amb: number | null
+  apt: number | null
+}
+
 export type PriceData = {
   age: number
   range: string
-  tier: Tier
+  tier: OutputTier
 }

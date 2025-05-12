@@ -1,13 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
-import { Plan, Tier } from '@/types/planTypes'
+import type { Plan, Tier, PriceData } from '@/types/planTypes'
 import { useAppStore } from './app'
-
-type PriceData = {
-  age: number
-  range: string
-  tier: Tier
-}
 
 export const useAgeOperationsStore = defineStore('ageOperations', () => {
   // State
@@ -16,8 +10,8 @@ export const useAgeOperationsStore = defineStore('ageOperations', () => {
 
   const appStore = useAppStore()
 
-  const getTierForAge = (age: number): { range: string, tier: Tier } | null => {
-    if (!appStore.selectedPlan) return null
+  const getTierForAge = (age?: number): PriceData | null => {
+    if (!appStore.selectedPlan || age === undefined) return null
 
     const tiers = appStore.selectedPlan.getTiers()
     const tier = tiers.find(t => age <= t.getRange()) || tiers[tiers.length - 1]
@@ -33,20 +27,24 @@ export const useAgeOperationsStore = defineStore('ageOperations', () => {
       rangeStr = `${formattedStart} a ${formattedEnd}`
     }
 
-    return { range: rangeStr, tier }
+    // Default index (adjust based on your logic)
+    const index = 0
+
+    return {
+      age,
+      range: rangeStr,
+      tier: {
+        range: tier.getRange(),
+        enf: tier.getEnf()[index] ?? null,
+        amb: tier.getAmb()[index] ?? null,
+        apt: tier.getApt()[index] ?? null,
+      }
+    }
   }
 
   watch([ageInput, () => appStore.selectedPlan], () => {
     agePrices.value = ageInput.value
-      .map(age => {
-        const result = getTierForAge(age)
-        if (!result) return null
-        return {
-          age,
-          range: result.range,
-          tier: result.tier
-        }
-      })
+      .map(age => getTierForAge(age))
       .filter((item): item is PriceData => item !== null)
   }, { deep: true })
 
