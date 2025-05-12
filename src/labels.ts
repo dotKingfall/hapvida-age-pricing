@@ -54,11 +54,11 @@ export const outputconfig_change_discount_price_value = "Total com desconto: {di
 export const outputconfig_change_discount_value = "Total após {duration} meses: {discountedTotal} (-{discount}%)"
 export const outputconfig_change_discount_duration_value = "Após {duration} meses, os valores retornarão ao normal."
 
-export const outputconfig_change_price_label = "Alterar mensagem Idade: Preço"
-export const outputconfig_change_total_label = "Alterar mensagem Total: Preço"
-export const outputconfig_change_discount_price_label = "Alterar mensagem Total: Preço (com desconto)"
-export const outputconfig_change_discount_label = "Alterar mensagem Desconto: Porcentagem"
-export const outputconfig_change_discount_duration_label = "Alterar mensagem Duração: Meses"
+export const outputconfig_change_price_label = "MENSAGEM DE PREÇO POR IDADE";
+export const outputconfig_change_total_label = "MENSAGEM DE PREÇO TOTAL";
+export const outputconfig_change_discount_price_label = "MENSAGEM DE PREÇO TOTAL COM DESCONTO";
+export const outputconfig_change_discount_label = "MENSAGEM DE PORCENTAGEM DE DESCONTO";
+export const outputconfig_change_discount_duration_label = "MENSAGEM DA DURAÇÃO EM MESES";
 
 export const outputconfig_change_price_hint = "Use {label} para a idade/faixa etária e {price} para o preço."
 export const outputconfig_change_total_hint = "Use {total} para o preço total."

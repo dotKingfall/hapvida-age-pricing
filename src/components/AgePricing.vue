@@ -25,6 +25,9 @@ const globalConfig = useGlobalConfigStore();
 
 .ti {
   flex-grow: 1;
+  :deep(.v-theme--dark .v-label.v-field-label--floating.text-primary) {
+    color: var(--text-accent) !important;
+  }
 }
 
 .plan-choices {

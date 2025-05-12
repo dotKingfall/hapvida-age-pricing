@@ -16,7 +16,9 @@ const rootStyles = computed(() => ({
   '--text-accent': colors.text_accent.value,
   '--text-output': colors.text_output.value,
   '--foreground': colors.foreground.value,
+  '--overlay': colors.overlay.value,
   '--bg': colors.bg.value,
   '--bg-accent': colors.bg_accent.value,
+  '--bg-output-outline': colors.bg_output_outline.value,
 }))
 </script>

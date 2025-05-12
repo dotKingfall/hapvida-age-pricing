@@ -20,7 +20,7 @@ export default createVuetify({
       },
       
       dark: {
-        dark: false,
+        dark: true,
         colors: {
           'primary': '#221B27',
           'accent': '#281A3D',

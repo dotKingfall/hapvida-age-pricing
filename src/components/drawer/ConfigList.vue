@@ -2,11 +2,12 @@
   <div>
     <!-- APPLY CUSTOM DISCOUNT -->
     <div class="discount-field">
-      <v-checkbox v-model="applyDiscount" color="primary" />
+      <v-checkbox v-model="applyDiscount" class="activator-checkbox" />
 
       <div class="discount-input">
         <v-number-input
-          color="primary"
+          class="activator-checkbox"
+        
           :label="$labels.drawer_apply_discount"
           control-variant="stacked"
           :disabled="!applyDiscount"
@@ -19,11 +20,12 @@
 
     <!-- OVERRIDE BASE DISCOUNT -->
     <div class="discount-field">
-      <v-checkbox v-model="overrideDiscount" color="primary" />
+      <v-checkbox v-model="overrideDiscount" class="activator-checkbox" />
 
       <div class="discount-input">
         <v-number-input
-          color="primary"
+          class="activator-checkbox"
+        
           :label="$labels.drawer_override_base_discount"
           control-variant="stacked"
           :disabled="!overrideDiscount"
@@ -36,11 +38,12 @@
 
     <!-- SET DISCOUNT DURATION -->
     <div class="discount-field">
-      <v-checkbox v-model="updateDiscountDuration" color="primary" />
+      <v-checkbox v-model="updateDiscountDuration" class="activator-checkbox" />
 
       <div class="discount-input">
         <v-number-input
-          color="primary"
+          class="activator-checkbox"
+        
           :label="$labels.drawer_discount_duration"
           control-variant="stacked"
           :disabled="!updateDiscountDuration"
@@ -52,7 +55,8 @@
     <!-- SHOW AGE RANGE -->
     <v-checkbox
       :model-value="showRange"
-      color="primary"
+      class="activator-checkbox"
+    
       :label="$labels.drawer_show_age_range"
       @update:model-value="globalConfigStore.toggleShowRange()"
     />
@@ -62,7 +66,7 @@
     </v-dialog>
 
     <!-- OPEN CUSTOM CONFIG -->
-     <v-btn @click="showChangeOutput = true" color="primary">{{ $labels.drawer_customize_output }}</v-btn>
+     <v-btn @click="showChangeOutput = true" class="text-output-button">{{ $labels.drawer_customize_output }}</v-btn>
   </div>
 </template>
 
@@ -72,7 +76,6 @@ import { ref, computed } from 'vue';
 
 const globalConfigStore = useGlobalConfigStore();
 
-// Initialize refs with store values
 const applyDiscount = ref(false);
 const overrideDiscount = ref(false);
 const updateDiscountDuration = ref(false);
@@ -141,4 +144,16 @@ watch(
   width: 100%;
   max-width: 650px;
 }
+
+.text-output-button{
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: var(--text);
+}
+
+.v-theme--dark{
+    .text-output-button{
+      border: 1px solid var(--text-accent);
+    }
+  }
 </style>

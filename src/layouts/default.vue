@@ -59,7 +59,7 @@
       :color="colors.bg.value"
     >
       <div class="drawer-title">
-        <v-icon color="primary" size="3.5vh">mdi-cog</v-icon>
+        <v-icon size="3.5vh">mdi-cog</v-icon>
         <div class="ml-2">{{ $labels.drawer_title }}</div>
       </div>
 
@@ -73,7 +73,6 @@
     </v-navigation-drawer>
 
     <v-main class="app-outline">
-      <!-- Progress Circular when loading -->
       <div v-if="appStore.isLoading" class="loading-overlay">
         <v-progress-circular
           color="primary"
@@ -82,7 +81,7 @@
           width="6"
         />
       </div>
-      <!-- Main content when not loading -->
+
       <router-view v-else class="app-padding" />
     </v-main>
   </v-app>
@@ -113,6 +112,10 @@ const rootStyles = computed(() => ({
   '--primary': colors.primary.value,
   '--accent': colors.accent.value,
   '--text': colors.text.value,
+  '--text-accent': colors.text_accent.value,
+  '--text-output': colors.text_output.value,
+  '--foreground': colors.foreground.value,
+  '--overlay': colors.overlay.value,
   '--bg': colors.bg.value,
   '--bg-accent': colors.bg_accent.value,
 }))
@@ -150,7 +153,7 @@ function toggleTheme() {
 
 <style scoped lang="scss">
 .drawer-title {
-  color: var(--primary);
+  color: var(--text-accent);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   display: flex;

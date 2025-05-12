@@ -1,4 +1,3 @@
-```vue
 <template>
   <div>
     <v-select
@@ -35,11 +34,16 @@ const handlePlanChange = (newId: number) => {
 </script>
 
 <style scoped lang="scss">
+
 .plan-select {
   min-width: 22vw;
   
   @media (min-width: (s.$mobile-width + 1px)) {
     margin-right: 6.5vh;
+  }
+
+  :deep(.v-theme--dark .v-label.v-field-label--floating.text-primary) {
+    color: var(--text-accent) !important; /* Replace with your desired color */
   }
 }
 </style>

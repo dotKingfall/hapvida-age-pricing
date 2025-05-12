@@ -1,0 +1,15 @@
+.v-theme--dark .v-list-item--variant-text .v-list-item__overlay {
+  background: var(--overlay);
+}
+
+.v-theme--dark .v-list-item--variant-text .v-list-item__content{
+  color: var(--text);
+}
+
+.v-theme--dark .activator-checkbox .v-selection-control .mdi-checkbox-marked{
+  color: var(--foreground);
+}
+
+.v-theme--light .activator-checkbox .v-selection-control .mdi-checkbox-marked{
+  color: var(--primary);
+}

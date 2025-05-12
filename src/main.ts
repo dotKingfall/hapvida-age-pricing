@@ -6,6 +6,7 @@ import 'unfonts.css'
 import * as labels from '@/labels'
 import { useThemeColors } from './styles/colors'
 import { useAppStore } from './stores/app'
+import '@/styles/global.scss'
 
 const app = createApp(App)
 app.config.globalProperties.$labels = labels

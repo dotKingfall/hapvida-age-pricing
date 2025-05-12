@@ -2,7 +2,7 @@
   <div class="tables-parent">
 
     <!-- NO COP -->
-    <v-card variant="tonal" class="tables-content">
+    <v-card class="tables-content">
       <div class="info-body">
         <div class="payment-category">
           <div class="title">{{ $labels.pricingtables_nocoparticipation_title }}</div>
@@ -43,7 +43,7 @@
     <v-divider :vertical="$vuetify.display.mdAndUp" class="divider" />
 
     <!-- WITH COP -->
-    <v-card variant="tonal" class="tables-content">
+    <v-card class="tables-content">
       <div class="info-body">
         <div class="payment-category">
           <div class="title">{{ $labels.pricingtables_coparticipation_title }}</div>
@@ -198,8 +198,8 @@ onUnmounted(() => {
 #with-cop-outline,
 #no-cop-outline {
   overflow-y: auto;
+  background: var(--bg-output-outline);
   padding: 0.3rem 0.5rem 0.5rem 0.3rem;
-  background-color: var(--bg-accent);
 
   /* WebKit browsers (Chrome, Safari, Edge) */
   &::-webkit-scrollbar {
@@ -232,6 +232,7 @@ onUnmounted(() => {
 
 .tables-content {
   border: 2px solid transparent;
+  background-color: transparent;
   flex: 0 0 42%;
   margin: 0 5em;
 
