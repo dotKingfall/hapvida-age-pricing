@@ -17,6 +17,7 @@ const rootStyles = computed(() => ({
   '--text-output': colors.text_output.value,
   '--foreground': colors.foreground.value,
   '--overlay': colors.overlay.value,
+  '--hover-overlay': colors.hover_overlay.value,
   '--bg': colors.bg.value,
   '--bg-accent': colors.bg_accent.value,
   '--bg-output-outline': colors.bg_output_outline.value,

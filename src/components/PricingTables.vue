@@ -237,7 +237,7 @@ onUnmounted(() => {
   margin: 0 5em;
 
   &:hover {
-    border: 2px solid var(--accent);
+    border: 2px solid var(--hover-overlay);
   }
 
   @media screen and (max-width: s.$mobile-width) {
