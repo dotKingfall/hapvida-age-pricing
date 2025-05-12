@@ -4,7 +4,6 @@ import { loadFileData } from '@/utils/fileLoader'
 import * as labels from '@/labels'
 import { Plan, Tier } from '@/types/planTypes'
 
-// Interface for CSV file configuration
 interface CsvFileConfig {
   name: string
   stateKey: string
@@ -12,7 +11,6 @@ interface CsvFileConfig {
   type: 'p' | 't' | 'both'
 }
 
-// Interface for grouped plan data
 interface PlanGroup {
   stateKeys: string[]
   parsedDataP?: any[]
@@ -39,7 +37,6 @@ export const useAppStore = defineStore('app', {
   }),
 
   actions: {
-    // Parses a CSV file content into an array of objects
     async parseCsvFile(fileContent: string): Promise<any[]> {
       try {
         const results = Papa.parse(fileContent, {
@@ -55,7 +52,6 @@ export const useAppStore = defineStore('app', {
       }
     },
 
-    // Loads and parses all CSV files, creating Plans and assigning to state
     async loadAndParseAllCsvFiles() {
       this.isLoading = true
       const csvFiles: CsvFileConfig[] = [
@@ -93,7 +89,6 @@ export const useAppStore = defineStore('app', {
       return Promise.all(loadPromises)
     },
 
-    // Groups parsed data by planName and creates Plan objects
     createPlans(parsedFiles: { stateKey: string; planName: string; type: 'p' | 't' | 'both'; parsedData: any[] }[]): Plan[] {
       const plansByName: { [key: string]: PlanGroup } = {}
 
@@ -108,7 +103,7 @@ export const useAppStore = defineStore('app', {
           plansByName[planName].parsedDataP = parsedData
         } else if (type === 't') {
           plansByName[planName].parsedDataT = parsedData
-        } else if (type === 'both') {// Use same data for _p and _t
+        } else if (type === 'both') {
           plansByName[planName].parsedDataP = parsedData
           plansByName[planName].parsedDataT = parsedData 
         }
